@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -26,13 +27,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $firstName = $this->faker->firstName();
         return [
             'role_id'           => Role::all()->random()->id,
-            'name'              => $this->faker->name(),
-            'fullname'          => $this->faker->name(),
+            'name'              => $firstName,
+            'fullname'          => $firstName . ' ' . $this->faker->lastName(),
             'email'             => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password'          => Hash::make('password'),
             'remember_token'    => Str::random(10),
         ];
     }

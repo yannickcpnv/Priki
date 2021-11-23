@@ -9,9 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @mixin Builder
  */
-class Role extends Model
+class Domain extends Model
 {
+
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
 }

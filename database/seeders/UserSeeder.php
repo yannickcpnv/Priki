@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,16 +17,43 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert([
-                         'role_id'           => Role::where('slug', 'admin')->first()->id,
-                         'name'              => 'Armand',
-                         'fullname'          => 'Marechal',
-                         'email'             => 'armand.marechal@cpnv.ch',
-                         'email_verified_at' => now(),
-                         'password'          => Hash::make('root'),
-                         'remember_token'    => Str::random(10),
-                     ]);
+        // Real users
+        $default = Role::where('slug', 'MBR')->firstOrFail();
+        $moderator = Role::where('slug', 'MOD')->firstOrFail();
+        foreach (
+            [
+                ['lname' => 'BAUDRAZ', 'fname' => 'Yannick', 'role' => $default],
+                ['lname' => 'BOUILLANT', 'fname' => 'Anthony', 'role' => $default],
+                ['lname' => 'COSTA-DOS-SANTOS', 'fname' => 'Mauro-Alexandre', 'role' => $default],
+                ['lname' => 'DELGADO', 'fname' => 'Noah', 'role' => $default],
+                ['lname' => 'DUBUIS', 'fname' => 'Helene', 'role' => $default],
+                ['lname' => 'GAUTIER', 'fname' => 'Theo', 'role' => $default],
+                ['lname' => 'GOLDENSCHUE', 'fname' => 'Cyril', 'role' => $default],
+                ['lname' => 'MARECHAL', 'fname' => 'Armand', 'role' => $default],
+                ['lname' => 'MOITA-MARTINS', 'fname' => 'Filipe-Alexandre', 'role' => $default],
+                ['lname' => 'OHAN', 'fname' => 'Melodie', 'role' => $default],
+                ['lname' => 'RABOT', 'fname' => 'Mathieu', 'role' => $default],
+                ['lname' => 'ROCHA-FERREIRA', 'fname' => 'Mario-Andre', 'role' => $default],
+                ['lname' => 'SAMOUTPHONH', 'fname' => 'Souphakone', 'role' => $default],
+                ['lname' => 'TESFAZGHI', 'fname' => 'Robiel', 'role' => $default],
+                ['lname' => 'CARREL', 'fname' => 'Xavier', 'role' => $moderator],
+                ['lname' => 'GLASSEY', 'fname' => 'Nicolas', 'role' => $moderator],
+                ['lname' => 'HURNI', 'fname' => 'Pascal', 'role' => $moderator],
+            ]
+            as $user
+        ) {
+            User::create([
+                             'role_id'  => $user['role']->id,
+                             'name'     => ucfirst(strtolower($user['fname'])) . ucfirst(strtolower($user['lname'])),
+                             'fullname' => ucfirst(strtolower($user['fname'])) . " " . $user['lname'],
+                             'email'    => ucfirst(strtolower($user['fname'])) . "." . ucfirst(
+                                     strtolower($user['lname'])
+                                 ) . "@cpnv.ch",
+                             'password' => Hash::make(strtolower($user['lname'])),
+                         ]);
+        }
 
-        User::factory(50)->create();
+        // and a few fake ones
+        User::factory(10)->create();
     }
 }

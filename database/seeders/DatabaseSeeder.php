@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
     /**
      * Seed the application's database.
      *
@@ -13,12 +14,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-                        PublicationStateSeeder::class,
-                        DomainSeeder::class,
-                        RoleSeeder::class,
-
-                        UserSeeder::class,
-                    ]);
+        $this->call(
+            [
+                TruncateAllTables::class,
+                DomainSeeder::class,
+                PublicationStateSeeder::class,
+                PublicationStateTransitionSeeder::class,
+                RoleSeeder::class,
+                UserSeeder::class,
+                PracticeSeeder::class,
+                OpinionSeeder::class,
+                ReferenceSeeder::class,
+                OpinionReferenceSeeder::class,
+            ]
+        );
     }
 }

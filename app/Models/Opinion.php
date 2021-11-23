@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @mixin Builder
  */
-class Role extends Model
+class Opinion extends Model
 {
-    use HasFactory;
 
-    public $timestamps = false;
+    use HasFactory;
 }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\PublicationState;
 
 class PublicationStateSeeder extends Seeder
 {
@@ -15,23 +15,14 @@ class PublicationStateSeeder extends Seeder
      */
     public function run()
     {
-        $publicationStates = [
+        PublicationState::insert(
             [
-                'name' => 'Draft',
-                'slug' => 'draft',
-            ],
-            [
-                'name' => 'Published',
-                'slug' => 'pub',
-            ],
-            [
-                'name' => 'Archived',
-                'slug' => 'arch',
-            ],
-        ];
-
-        foreach ($publicationStates as $publicationState) {
-            DB::table('publication_states')->insert($publicationState);
-        }
+                ['name' => 'Brouillon', 'slug' => 'DRA'],
+                ['name' => 'Proposé', 'slug' => 'PRO'],
+                ['name' => 'Publié', 'slug' => 'PUB'],
+                ['name' => 'Clos', 'slug' => 'CLO'],
+                ['name' => 'Archivé', 'slug' => 'ARC'],
+            ]
+        );
     }
 }

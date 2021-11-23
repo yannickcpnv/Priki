@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Domain;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DomainSeeder extends Seeder
 {
@@ -15,23 +15,19 @@ class DomainSeeder extends Seeder
      */
     public function run()
     {
-        $domains = [
+        Domain::insert(
             [
-                'name' => 'Domain 1',
-                'slug' => 'domain-1',
-            ],
-            [
-                'name' => 'Domain 2',
-                'slug' => 'domain-2',
-            ],
-            [
-                'name' => 'Domain 3',
-                'slug' => 'domain-3',
-            ],
-        ];
-
-        foreach ($domains as $domain) {
-            DB::table('domains')->insert($domain);
-        }
+                ['name' => 'Web', 'slug' => 'WEB'],
+                ['name' => 'Scientifique', 'slug' => 'SCI'],
+                ['name' => 'Business', 'slug' => 'BUS'],
+                ['name' => 'Medical', 'slug' => 'MED'],
+                ['name' => 'Industriel and contrôle de processus', 'slug' => 'IND'],
+                ['name' => 'Embarqué', 'slug' => 'EMB'],
+                ['name' => 'Big Data', 'slug' => 'BGD'],
+                ['name' => 'Militaire', 'slug' => 'MIL'],
+                ['name' => 'Système d\'exploitation', 'slug' => 'OS'],
+                ['name' => 'Outils', 'slug' => 'TLS'],
+            ]
+        );
     }
 }
