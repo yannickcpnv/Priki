@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\Domain;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome', [
+    return view('domains', [
         'domains' => Domain::all(),
+    ]);
+});
+
+Route::get('/domains', function () {
+    return view('domains', [
+        'domains' => Domain::all(),
+    ]);
+});
+
+Route::get('/roles', function () {
+    return view('roles', [
+        'roles' => Role::all(),
     ]);
 });
