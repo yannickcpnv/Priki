@@ -3,7 +3,7 @@
  *
  * @param {string[]} classNames Name of classes that have a toggle.
  */
-function handleMenuClickToggles(classNames)
+function handleNavClickToggles(classNames)
 {
     classNames.forEach(function(cls) {
         const navbarBurgers = Array.prototype.slice.call(
@@ -34,5 +34,5 @@ function handleMenuClickToggles(classNames)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    handleMenuClickToggles(['.navbar-burger', '.has-dropdown']);
+    handleNavClickToggles(['.navbar-burger', '.has-dropdown']);
 });
