@@ -1,24 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(
-        document.querySelectorAll('.navbar-burger'),
-        0,
-    );
+/**
+ * Handle toggles on click in navbar.
+ *
+ * @param {string[]} classNames Name of classes that have a toggle.
+ */
+function handleMenuClickToggles(classNames)
+{
+    classNames.forEach(function(cls) {
+        const navbarBurgers = Array.prototype.slice.call(
+            document.querySelectorAll(cls),
+            0,
+        );
 
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
-        // Add a click event on each of them
-        $navbarBurgers.forEach(el => {
+        navbarBurgers.forEach(el => {
             el.addEventListener('click', () => {
-                // Get the target from the "data-target" attribute
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
+                const target = document.getElementById(el.dataset.target);
 
-                // Toggle the "is-active" class on both the "navbar-burger" and
-                // the "navbar-menu"
+                // Toggle the "is-active" class on both element and menu
                 el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
+                target.classList.toggle('is-active');
+
+                let bodyEl = document.querySelector('main');
+                const listener = function(e) {
+                    if (e.target !== document.getElementsByClassName(cls)) {
+                        el.classList.remove('is-active');
+                        target.classList.remove('is-active');
+                        bodyEl.removeEventListener('click', listener);
+                    }
+                };
+                bodyEl.addEventListener('click', listener);
             });
         });
-    }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    handleMenuClickToggles(['.navbar-burger', '.has-dropdown']);
 });

@@ -7,25 +7,26 @@
             >
         </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item">
                 Home
             </a>
 
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown"
+            >
                 <a class="navbar-link">
                     Roles
                 </a>
 
-                <div class="navbar-dropdown">
+                <div id="roles-dropdown" class="navbar-dropdown">
                     @foreach (\App\Models\Role::all() as $role)
                         <a class="navbar-item">
                             {{ $role->name }}
@@ -34,12 +35,12 @@
                 </div>
             </div>
 
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable" data-target="domains-dropdown">
                 <a class="navbar-link">
-                    Domain
+                    Domains
                 </a>
 
-                <div class="navbar-dropdown">
+                <div id="domains-dropdown" class="navbar-dropdown">
                     @foreach (\App\Models\Domain::all() as $domain)
                         <a class="navbar-item">
                             {{ $domain->name }}
