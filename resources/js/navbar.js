@@ -1,29 +1,24 @@
-let mobileMenu = document.getElementById('mobile-menu');
-let profileDropdown = document.getElementById('profile-dropdown');
-let icoBtnMenuOpen = document.getElementById('ico-btn-menu-open');
-let icoBtnMenuClose = document.getElementById('ico-btn-menu-close');
+document.addEventListener('DOMContentLoaded', () => {
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(
+        document.querySelectorAll('.navbar-burger'),
+        0,
+    );
 
-document.getElementById('btn-toggle-navbar').
-    addEventListener('click', function(event) {
-        if (mobileMenu.classList.contains('hidden')) {
-            icoBtnMenuOpen.classList.add('hidden');
-            icoBtnMenuClose.classList.remove('hidden');
-            mobileMenu.classList.remove('hidden');
-        }
-        else {
-            icoBtnMenuOpen.classList.remove('hidden');
-            icoBtnMenuClose.classList.add('hidden');
-            mobileMenu.classList.add('hidden');
-        }
-    });
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
 
-document.addEventListener('click', function(event) {
-    if (event.target.closest('#profile-dropdown') ||
-        event.target.closest('#btn-profile-dropdown')) {
-        return;
-    }
-
-    if (!profileDropdown.classList.contains('hidden')) {
-        profileDropdown.classList.add('hidden');
+                // Toggle the "is-active" class on both the "navbar-burger" and
+                // the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
     }
 });

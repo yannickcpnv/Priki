@@ -13,4 +13,9 @@ class Practice extends Model
 {
 
     use HasFactory;
+
+    public final function getSwitzerlandDate(): string
+    {
+        return $this->updated_at->isoFormat('LL');
+    }
 }

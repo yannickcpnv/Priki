@@ -9,12 +9,16 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script defer src="{{ mix('js/app.js') }}"></script>
-    @stack('scripts')
 </head>
 <body>
-    <x-navbar></x-navbar>
-    <main class="container mx-auto">
-        {{ $slot }}
+    @include('components.navbar')
+    <main>
+        <section class="section">
+            <div class="container">
+                <h1 class="title">{{ $titlePage }}</h1>
+                {{ $slot }}
+            </div>
+        </section>
     </main>
 </body>
 </html>

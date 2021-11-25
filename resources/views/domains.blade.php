@@ -1,6 +1,8 @@
 <x-layout>
-    <h1>Hello class</h1>
-    @foreach ($domains as $domain)
-        <p>{{ $domain->name }}</p>
-    @endforeach
+    <x-slot name="title">Domains</x-slot>
+    <div class="box">
+        @foreach ($domains as $domain)
+            <p>{{ $domain->name }}</p>
+        @endforeach
+    </div>
 </x-layout>

@@ -2,6 +2,7 @@
 
 use App\Models\Role;
 use App\Models\Domain;
+use App\Models\Practice;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('domains', [
-        'domains' => Domain::all(),
+    return view('home', [
+        'practices' => Practice::all(),
     ]);
 });
 
