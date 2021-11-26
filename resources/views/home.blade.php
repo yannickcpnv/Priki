@@ -1,9 +1,12 @@
 <x-layout>
+    @push('custom-scripts')
+        <script defer src="{{ mix('js/last_practices_updated.js') }}"></script>
+    @endpush
     <x-slot name="titlePage" class="is-primary">Best practices</x-slot>
     @if($practices->isNotEmpty())
         <label class="field is-grouped is-grouped-right is-align-items-center">
             <div>Nouveau de&nbsp;</div>
-            <input id="lastUpdatedDays" class="input is-inline" min="1" max="100" type="number" value="5">
+            <input id="last-updated-days" class="input is-inline" min="1" max="100" type="number" value="5">
             <div>&nbsp;Jours</div>
         </label>
         <div class="columns is-multiline">
