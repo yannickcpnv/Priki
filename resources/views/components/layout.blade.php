@@ -9,8 +9,9 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script defer src="{{ mix('js/app.js') }}"></script>
+    @stack('custom-scripts')
 </head>
-<body>
+<body class="is-family-code">
     @include('components.navbar')
     <main>
         <section class="section">
