@@ -5,6 +5,7 @@
                wire:change.debounce="onLastUpdates"
                class="input is-inline"
                type="number"
+               min="1"
                size="3"
                style="-moz-appearance: textfield"
         >
