@@ -46,18 +46,20 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi"
         ],
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@composer copy:env"
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@composer generate:key"
         ],
-        "setproject:dev": [
+        "setup:dev": [
             "@composer install",
+            "@composer copy:env",
             "npm install",
             "npm run dev",
-            "@php -r \"copy('.env.example', '.env')\"",
-            "@php artisan key:generate --ansi"
+            "@composer generate:key"
         ],
+        "copy:env": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+        "generate:key": "@php artisan key:generate --ansi",
         "db:refresh:seed": "@php artisan migrate:fresh --seed"
     },
     "extra": {
