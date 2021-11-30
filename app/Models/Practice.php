@@ -21,7 +21,7 @@ class Practice extends Model
     {
         return Practice::whereHas(
             'publicationState',
-            fn($publicationState) => $publicationState->where('slug', '=', 'PUB')
+            fn($publicationState) => $publicationState->where('slug', 'PUB')
         )->get();
     }
 

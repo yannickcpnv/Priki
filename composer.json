@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
@@ -47,7 +50,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "setproject:dev": [
+            "@composer install",
+            "npm install",
+            "npm run dev",
+            "@php -r \"copy('.env.example', '.env')\"",
+            "@php artisan key:generate --ansi"
+        ],
+        "db:refresh:seed": "@php artisan migrate:fresh --seed"
     },
     "extra": {
         "laravel": {

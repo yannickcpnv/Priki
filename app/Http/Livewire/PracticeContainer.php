@@ -30,12 +30,8 @@ class PracticeContainer extends Component
 
     private function getLastUpdates(): void
     {
-        if (!intval($this->days)) {
-            return;
-        }
-
         $allPublished = Practice::allPublished();
-        $lastUpdates = Practice::lastUpdates(intval($this->days));
+        $lastUpdates = Practice::lastUpdates((int)$this->days);
         $this->practices = $allPublished->intersect($lastUpdates);
     }
 }
