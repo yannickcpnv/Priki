@@ -12,12 +12,6 @@ class HomeController extends Controller
 
     final public function index(): Factory|View|Application
     {
-        $allPublished = Practice::allPublished();
-        $lastUpdates = Practice::lastUpdates();
-        $duplicates = $allPublished->intersect($lastUpdates);
-
-        return view('home', [
-            'practices' => $duplicates,
-        ]);
+        return view('home');
     }
 }

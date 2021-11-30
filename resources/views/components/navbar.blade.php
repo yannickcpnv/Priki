@@ -3,7 +3,7 @@
         <a class="navbar-item" href="/">
             <img class="has-text-primary"
                  alt="Logo"
-                 src="https://www.seekpng.com/png/full/596-5962820_best-practice-logo-pediatric-nutrition-in-practice.png"
+                 src="{{ url('images/logo.png') }}"
             >
         </a>
 

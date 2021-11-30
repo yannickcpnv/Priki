@@ -31,7 +31,6 @@
     {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
-                alert(httpRequest.responseText);
             }
             else {
                 alert('Il y a eu un problème avec la requête.');

@@ -7,8 +7,9 @@
 
     <title>Priki</title>
 
-    <!-- Fonts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @livewireStyles
+
     <script defer src="{{ mix('js/app.js') }}"></script>
     @stack('custom-scripts')
 </head>
@@ -22,5 +23,7 @@
             </div>
         </section>
     </main>
+
+    @livewireScripts
 </body>
 </html>

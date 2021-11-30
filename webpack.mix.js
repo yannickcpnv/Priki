@@ -12,7 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js(['resources/js/app.js', 'resources/js/navbar.js'], 'public/js').
-    js('resources/js/last_practices_updated.js', 'public/js').
     sass('resources/sass/app.scss', 'public/css');
 
 if (mix.inProduction()) {
