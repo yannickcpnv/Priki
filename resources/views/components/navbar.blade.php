@@ -16,12 +16,11 @@
 
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item" href="{{ route('home') }}">
                 Home
             </a>
 
-            <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown"
-            >
+            <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
                 <a class="navbar-link">
                     Role
                 </a>
@@ -36,17 +35,21 @@
             </div>
 
             <div class="navbar-item has-dropdown is-hoverable" data-target="domains-dropdown">
-                <a class="navbar-link">
+                <a class="navbar-link {{ !str_contains(request()->path(), 'domains') ?: 'has-text-link' }}">
                     Domaine
                 </a>
 
                 <div id="domains-dropdown" class="navbar-dropdown">
-                    <a class="navbar-item is-active is-danger" href="{{  route('domains') }}">
+                    <a class="navbar-item is-danger {{ request()->path() != "domains" ?: 'is-active' }}"
+                       href="{{  route('domains') }}"
+                    >
                         Tous ({{ \App\Models\Practice::allPublished()->count() }})
                     </a>
                     <hr class="navbar-divider">
                     @foreach (\App\Models\Domain::all() as $domain)
-                        <a class="navbar-item" href="{{ route('domains.slug', ['slug' => $domain->slug]) }}">
+                        <a class="navbar-item {{ request()->path() != "domains/".$domain->slug ?: 'is-active' }}"
+                           href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
+                        >
                             {{ $domain->name }}
                             ({{ \App\Models\Practice::allPublishedBy('domain', $domain->slug, true)->count() }})
                         </a>

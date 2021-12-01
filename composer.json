@@ -60,7 +60,7 @@
         ],
         "copy:env": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
         "generate:key": "@php artisan key:generate --ansi",
-        "db:refresh:seed": "@php artisan migrate:fresh --seed"
+        "db:rf:s": "@php artisan migrate:fresh --seed"
     },
     "extra": {
         "laravel": {
