@@ -15,7 +15,7 @@
     @if($this->practices->isNotEmpty())
         <div class="columns is-multiline is-centered">
             @foreach ($this->practices as $practice)
-                <livewire:practice-card
+                <livewire:practice-card-component
                     :practice="$practice"
                     :classes="'column is-one-third is-flex'"
                     wire:key="{{ $practice->id }}"

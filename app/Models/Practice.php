@@ -17,12 +17,28 @@ class Practice extends Model
 
     use HasFactory;
 
-    final public static function allPublished(): Collection|array
+    final public static function allPublished(): Collection
+    {
+        return self::allPublishedQuery()->get();
+    }
+
+    final public static function allPublishedBy(string $columns, mixed $value): Collection
+    {
+        return self::allPublishedQuery()->where($columns, '=', $value)->get();
+    }
+
+    final public static function lastUpdates(int $days = 1): Collection
+    {
+        $dateSubDay = Carbon::now()->subDays($days);
+        return Practice::where('updated_at', '>=', $dateSubDay)->get();
+    }
+
+    private static function allPublishedQuery(): Builder
     {
         return Practice::whereHas(
             'publicationState',
             fn($publicationState) => $publicationState->where('slug', 'PUB')
-        )->get();
+        );
     }
 
     final public function domain(): BelongsTo
@@ -33,11 +49,5 @@ class Practice extends Model
     final public function publicationState(): BelongsTo
     {
         return $this->belongsTo(PublicationState::class);
-    }
-
-    final public static function lastUpdates(int $days = 1): Collection|array
-    {
-        $dateSubDay = Carbon::now()->subDays($days);
-        return Practice::where('updated_at', '>=', $dateSubDay)->get();
     }
 }
