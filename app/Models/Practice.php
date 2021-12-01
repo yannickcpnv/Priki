@@ -22,9 +22,12 @@ class Practice extends Model
         return self::allPublishedQuery()->get();
     }
 
-    final public static function allPublishedBy(string $columns, mixed $value): Collection
+    final public static function allPublishedBy(string $column, mixed $value, bool $isValueSlug = false): Collection
     {
-        return self::allPublishedQuery()->where($columns, '=', $value)->get();
+        return self::allPublishedQuery()->whereHas(
+            $column,
+            fn($relation) => $relation->where($isValueSlug ? 'slug' : 'id', $value)
+        )->get();
     }
 
     final public static function lastUpdates(int $days = 1): Collection

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DomainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,6 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::post('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/domains', [DomainController::class, 'index'])->name('domains');
+Route::get('/domains/{slug}', [DomainController::class, 'bySlug'])->name('domains.slug');

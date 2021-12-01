@@ -14,11 +14,12 @@ class PracticeContainerComponent extends Component
 
     public string|int $days;
     public Collection $practices;
+    public Collection $originalPractices;
 
     final public function mount(): void
     {
         $this->days = 5;
-        $this->getLastUpdates();
+        $this->originalPractices = $this->practices;
     }
 
     final public function render(): Factory|View|Application
@@ -33,8 +34,7 @@ class PracticeContainerComponent extends Component
 
     private function getLastUpdates(): void
     {
-        $allPublished = Practice::allPublished();
         $lastUpdates = Practice::lastUpdates((int)$this->days);
-        $this->practices = $allPublished->intersect($lastUpdates);
+        $this->practices = $this->originalPractices->intersect($lastUpdates);
     }
 }

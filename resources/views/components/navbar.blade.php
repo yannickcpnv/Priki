@@ -41,14 +41,14 @@
                 </a>
 
                 <div id="domains-dropdown" class="navbar-dropdown">
-                    <a class="navbar-item is-active is-danger" href="#">
+                    <a class="navbar-item is-active is-danger" href="{{  route('domains') }}">
                         Tous ({{ \App\Models\Practice::allPublished()->count() }})
                     </a>
                     <hr class="navbar-divider">
                     @foreach (\App\Models\Domain::all() as $domain)
-                        <a href="#" class="navbar-item">
+                        <a class="navbar-item" href="{{ route('domains.slug', ['slug' => $domain->slug]) }}">
                             {{ $domain->name }}
-                            ({{ \App\Models\Practice::allPublishedBy('domain_id', $domain->id)->count() }})
+                            ({{ \App\Models\Practice::allPublishedBy('domain', $domain->slug, true)->count() }})
                         </a>
                     @endforeach
                 </div>

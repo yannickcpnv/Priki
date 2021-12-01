@@ -23,7 +23,7 @@
             @endforeach
         </div>
     @else
-        <livewire:message
+        <livewire:message-component
             :message="'Aucune pratique à afficher ici'"
             :message-type="'info'"
         />
