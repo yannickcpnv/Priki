@@ -32,12 +32,8 @@ class PracticeCardComponent extends Component
         return view('livewire.practice-card-component');
     }
 
-    /**
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
     final public function isDomainSelected(): bool
     {
-        return session()->get('domain') != null;
+        return session()->exists('domain');
     }
 }
