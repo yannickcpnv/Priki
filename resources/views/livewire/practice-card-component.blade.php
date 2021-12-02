@@ -1,4 +1,9 @@
-<div class="{{ $this->classes ?? '' }}">
+<div class="
+        {{ $this->classes ?? '' }}
+    hover:scale-110 hover:cursor-pointer
+    transition duration-500 animate-fade-in-up
+"
+>
     <article class="message box-shadow flex flex-col">
         @if (!$this->isDomainSelected())
             <div class="message-header">{{ $this->practice->domain->name }}</div>
