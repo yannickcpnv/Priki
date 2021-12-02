@@ -30,7 +30,7 @@ class Practice extends Model
         )->get();
     }
 
-    final public static function lastUpdates(int $days = 1): Collection
+    final public static function lastUpdates(int $days): Collection
     {
         $dateSubDay = Carbon::now()->subDays($days);
         return Practice::where('updated_at', '>=', $dateSubDay)->get();

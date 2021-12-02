@@ -2,8 +2,8 @@
     <label class="field is-grouped is-grouped-right is-align-items-center">
         <div>Nouveau de&nbsp;</div>
         <input
-            wire:model.debounce="days"
-            wire:change.debounce="onLastUpdates"
+            wire:model="days"
+            wire:change="onLastUpdates"
             class="input is-inline"
             type="number"
             min="1"
