@@ -1,8 +1,9 @@
-<div class="
+<div
+    class="
         {{ $this->classes ?? '' }}
-    hover:scale-110 hover:cursor-pointer
-    transition duration-500 animate-fade-in-up
-"
+        hover:scale-110 hover:cursor-pointer hover:z-10
+        transition duration-500 animate-fade-in-up
+    "
 >
     <article class="message box-shadow flex flex-col">
         @if (!$this->isDomainSelected())

@@ -18,7 +18,7 @@
                 <livewire:practice-card-component
                     :practice="$practice"
                     :classes="'column is-one-third is-flex'"
-                    wire:key="{{ $practice->id }}"
+                    :key="$practice->id"
                 />
             @endforeach
         </div>
