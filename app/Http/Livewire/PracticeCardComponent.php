@@ -32,6 +32,11 @@ class PracticeCardComponent extends Component
         return view('livewire.practice-card-component');
     }
 
+    /**
+     * Check if the domain of practices is selected.
+     *
+     * @return bool
+     */
     final public function isDomainSelected(): bool
     {
         return session()->exists('domain');

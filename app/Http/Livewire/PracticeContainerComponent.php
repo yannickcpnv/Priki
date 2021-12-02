@@ -27,7 +27,10 @@ class PracticeContainerComponent extends Component
         return view('livewire.practice-container-component');
     }
 
-    final public function onLastUpdates(): void
+    /**
+     * Event when the number of days is updated.
+     */
+    final public function onDaysUpdate(): void
     {
         $this->getLastUpdates();
     }

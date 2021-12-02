@@ -12,6 +12,13 @@ use Illuminate\Contracts\Foundation\Application;
 class DomainController extends Controller
 {
 
+    /**
+     * Go to the domains index page.
+     *
+     * @param Request $request The HTTP request.
+     *
+     * @return Factory|View|Application
+     */
     final public function index(Request $request): Factory|View|Application
     {
         $sessionName = 'domain';
@@ -22,10 +29,18 @@ class DomainController extends Controller
         return view('pages.home', ['practices' => Practice::allPublished()]);
     }
 
+    /**
+     * Go to a domain page by slug.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request.
+     * @param string                   $slug
+     *
+     * @return Factory|View|Application
+     */
     final public function bySlug(Request $request, string $slug): Factory|View|Application
     {
         $sessionName = 'domain';
-        $domain = Domain::where('slug', $slug)->first();
+        $domain = Domain::whereSlug($slug)->first();
         if (!$request->session()->exists($sessionName)) {
             $request->session()->put($sessionName, $domain);
         }

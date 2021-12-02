@@ -11,6 +11,13 @@ use Illuminate\Contracts\Foundation\Application;
 class HomeController extends Controller
 {
 
+    /**
+     * Go to the home page.
+     *
+     * @param Request $request The HTTP request.
+     *
+     * @return Factory|View|Application
+     */
     final public function index(Request $request): Factory|View|Application
     {
         $sessionName = 'domain';
