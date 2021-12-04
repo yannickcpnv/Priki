@@ -17,9 +17,9 @@ class Practice extends Model
 
     use HasFactory;
 
-    final public static function allPublished(): Collection
+    final public static function allPublished(string $with = null): Collection
     {
-        return self::allPublishedQuery()->get();
+        return self::allPublishedQuery($with)->get();
     }
 
     final public static function allPublishedBy(string $column, mixed $value, bool $isValueSlug = false): Collection
@@ -36,12 +36,14 @@ class Practice extends Model
         return Practice::where('updated_at', '>=', $dateSubDay)->get();
     }
 
-    private static function allPublishedQuery(): Builder
+    private static function allPublishedQuery(string $with = null): Builder
     {
-        return Practice::whereHas(
-            'publicationState',
-            fn($publicationState) => $publicationState->where('slug', 'PUB')
-        );
+        $relation = 'publicationState';
+        $callback = fn($publicationState) => $publicationState->where('slug', 'PUB');
+
+        return is_null($with)
+            ? Practice::whereHas($relation, $callback)
+            : Practice::with($with)->whereHas($relation, $callback);
     }
 
     final public function domain(): BelongsTo

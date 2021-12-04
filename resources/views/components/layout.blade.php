@@ -16,7 +16,7 @@
     @stack('custom-scripts')
 </head>
 <body class="is-family-code">
-    @include('components.navbar')
+    <x-navbar/>
     <main>
         <section class="section">
             <div class="container">

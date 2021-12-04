@@ -46,12 +46,12 @@
                         Tous ({{ \App\Models\Practice::allPublished()->count() }})
                     </a>
                     <hr class="navbar-divider">
-                    @foreach (\App\Models\Domain::all() as $domain)
+                    @foreach ($domains as $domain)
                         <a class="navbar-item {{ request()->path() != "domains/".$domain->slug ?: 'is-active' }}"
                            href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                         >
                             {{ $domain->name }}
-                            ({{ \App\Models\Practice::allPublishedBy('domain', $domain->slug, true)->count() }})
+                            ({{ $domain->practices_count }})
                         </a>
                     @endforeach
                 </div>
