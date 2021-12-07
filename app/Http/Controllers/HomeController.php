@@ -9,6 +9,13 @@ use Illuminate\Contracts\View\View;
 class HomeController extends Controller
 {
 
+    /**
+     * Go to the home page.
+     *
+     * @param Request $request The HTTP request.
+     *
+     * @return View
+     */
     final public function index(Request $request): View
     {
         $sessionName = 'domain';

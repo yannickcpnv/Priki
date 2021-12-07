@@ -20,6 +20,13 @@ class Practice extends Model
 
     //region Methods
 
+    /**
+     * Retrieve all published practices.
+     *
+     * @param string|null $with The relation to get with the model in eager loading.
+     *
+     * @return Collection
+     */
     final public static function allPublished(string $with = null): Collection
     {
         return self::allPublishedQuery($with)->get();
@@ -35,14 +42,33 @@ class Practice extends Model
             : Practice::with($with)->whereHas($relation, $callback);
     }
 
-    final public static function allPublishedBy(string $column, mixed $value, bool $isValueSlug = false): Collection
-    {
+    /**
+     * Retrieve all published story by a specific relation.
+     *
+     * @param string $modelRelation The name of the model relation.
+     * @param mixed  $value         The value of the relation column.
+     * @param bool   $isValueSlug   Specify if the value is a slug or an id.
+     *
+     * @return Collection
+     */
+    final public static function allPublishedBy(
+        string $modelRelation,
+        mixed $value,
+        bool $isValueSlug = false
+    ): Collection {
         return self::allPublishedQuery()->whereHas(
-            $column,
+            $modelRelation,
             fn($relation) => $relation->where($isValueSlug ? 'slug' : 'id', $value)
         )->get();
     }
 
+    /**
+     * Retrieve last updated practices by days.
+     *
+     * @param int $days The last updated days.
+     *
+     * @return Collection
+     */
     final public static function lastUpdates(int $days): Collection
     {
         $dateSubDay = Carbon::now()->subDays($days);
@@ -53,7 +79,6 @@ class Practice extends Model
     {
         return $this->publicationState->slug == Domain::PUBLISHED;
     }
-
     //endregion
 
 

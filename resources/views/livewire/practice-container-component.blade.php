@@ -10,7 +10,7 @@
             size="3"
             style="-moz-appearance: textfield"
         >
-        <div>&nbsp;Jours</div>
+        <div>&nbsp;jour{{ $this->days > 1 ? 's' : '' }}</div>
     </label>
     @if($this->practices->isNotEmpty())
         <div class="columns is-multiline is-centered">
