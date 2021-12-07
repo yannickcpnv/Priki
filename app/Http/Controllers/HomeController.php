@@ -25,6 +25,6 @@ class HomeController extends Controller
             $request->session()->remove($sessionName);
         }
 
-        return view('pages.home', ['practices' => Practice::allPublished()]);
+        return view('pages.home', ['practices' => Practice::allPublished('domain')]);
     }
 }
