@@ -17,9 +17,22 @@ class Practice extends Model
 
     use HasFactory;
 
+
+    //region Methods
+
     final public static function allPublished(string $with = null): Collection
     {
         return self::allPublishedQuery($with)->get();
+    }
+
+    private static function allPublishedQuery(string $with = null): Builder
+    {
+        $relation = 'publicationState';
+        $callback = fn($publicationState) => $publicationState->where('slug', DOMAIN::PUBLISHED);
+
+        return is_null($with)
+            ? Practice::whereHas($relation, $callback)
+            : Practice::with($with)->whereHas($relation, $callback);
     }
 
     final public static function allPublishedBy(string $column, mixed $value, bool $isValueSlug = false): Collection
@@ -36,15 +49,15 @@ class Practice extends Model
         return Practice::where('updated_at', '>=', $dateSubDay)->get();
     }
 
-    private static function allPublishedQuery(string $with = null): Builder
+    final public function isPublished(): bool
     {
-        $relation = 'publicationState';
-        $callback = fn($publicationState) => $publicationState->where('slug', 'PUB');
-
-        return is_null($with)
-            ? Practice::whereHas($relation, $callback)
-            : Practice::with($with)->whereHas($relation, $callback);
+        return $this->publicationState->slug == Domain::PUBLISHED;
     }
+
+    //endregion
+
+
+    //region Accessors
 
     final public function domain(): BelongsTo
     {
@@ -55,4 +68,11 @@ class Practice extends Model
     {
         return $this->belongsTo(PublicationState::class);
     }
+
+    final public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    //endregion
 }

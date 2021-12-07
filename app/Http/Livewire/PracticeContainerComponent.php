@@ -19,7 +19,7 @@ class PracticeContainerComponent extends Component
     final public function mount(): void
     {
         $this->days = config('business.last_updated_days');
-        $this->originalPractices = $this->practices;
+        $this->practices = $this->originalPractices;
     }
 
     final public function render(): Factory|View|Application

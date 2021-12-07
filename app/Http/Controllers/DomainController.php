@@ -6,13 +6,11 @@ use App\Models\Domain;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\Foundation\Application;
 
 class DomainController extends Controller
 {
 
-    final public function index(Request $request): Factory|View|Application
+    final public function index(Request $request): View
     {
         $sessionName = 'domain';
         if ($request->session()->exists($sessionName)) {
@@ -22,15 +20,15 @@ class DomainController extends Controller
         return view('pages.home', ['practices' => Practice::allPublished()]);
     }
 
-    final public function bySlug(Request $request, string $slug): Factory|View|Application
+    final public function bySlug(Request $request, string $slug): View
     {
         $sessionName = 'domain';
         $domain = Domain::where('slug', $slug)->first();
         if (!$request->session()->exists($sessionName)) {
             $request->session()->put($sessionName, $domain);
         }
-        $collection = Practice::allPublishedBy('domain', $slug, true);
+        $practices = Practice::allPublishedBy('domain', $slug, true);
 
-        return view('pages.domain', ['practices' => $collection, 'domain' => $domain]);
+        return view('pages.domain', compact('practices', 'domain'));
     }
 }

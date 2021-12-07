@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Domain;
 use Illuminate\Database\Seeder;
 use App\Models\PublicationState;
 
@@ -17,11 +18,11 @@ class PublicationStateSeeder extends Seeder
     {
         PublicationState::insert(
             [
-                ['name' => 'Brouillon', 'slug' => 'DRA'],
-                ['name' => 'Proposé', 'slug' => 'PRO'],
-                ['name' => 'Publié', 'slug' => 'PUB'],
-                ['name' => 'Clos', 'slug' => 'CLO'],
-                ['name' => 'Archivé', 'slug' => 'ARC'],
+                ['name' => 'Brouillon', 'slug' => Domain::DRAFTED],
+                ['name' => 'Proposé', 'slug' => DOMAIN::PROPOSED],
+                ['name' => 'Publié', 'slug' => DOMAIN::PUBLISHED],
+                ['name' => 'Clos', 'slug' => DOMAIN::CLOSED],
+                ['name' => 'Archivé', 'slug' => DOMAIN::ARCHIVED],
             ]
         );
     }

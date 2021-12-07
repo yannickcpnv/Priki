@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\PracticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,15 @@ use App\Http\Controllers\DomainController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/domains', [DomainController::class, 'index'])->name('domains');
-Route::get('/domains/{slug}', [DomainController::class, 'bySlug'])->name('domains.slug');
+
+Route::prefix('/domains')->group(function () {
+    Route::get('', [DomainController::class, 'index'])->name('domains');
+    Route::get('/{slug}', [DomainController::class, 'bySlug'])->name('domains.slug');
+});
+
+Route::prefix('/practices')->group(function () {
+    Route::get('/{practice}', [PracticeController::class, 'consultPractice'])
+        ->name('practice')
+        ->middleware('practice.isPublished');
+});
+

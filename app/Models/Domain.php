@@ -16,6 +16,12 @@ class Domain extends Model
 
     use HasFactory;
 
+    const DRAFTED   = 'DRA';
+    const PROPOSED  = 'PRO';
+    const PUBLISHED = 'PUB';
+    const CLOSED    = 'CLO';
+    const ARCHIVED  = 'ARC';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -28,7 +34,7 @@ class Domain extends Model
         return Domain::withCount([
                                      'practices' => function ($query) {
                                          $query->whereHas('publicationState', function ($q) {
-                                             $q->where('slug', 'PUB');
+                                             $q->where('slug', self::PUBLISHED);
                                          });
                                      },
                                  ])->get();
