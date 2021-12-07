@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
     mode: 'jit',
     purge: [
@@ -9,11 +7,6 @@ module.exports = {
     ],
 
     theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
-        },
         keyframes: {
             'fade-in-up': {
                 '0%': {
@@ -30,6 +23,13 @@ module.exports = {
             'fade-in-up': 'fade-in-up 0.5s ease-out',
         },
     },
+    variants: {
+        extend: {
+            opacity: ['disabled'],
+        },
+    },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography')],
 }

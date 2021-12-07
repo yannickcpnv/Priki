@@ -3,7 +3,7 @@
         <div>Nouveau de&nbsp;</div>
         <input
             wire:model="days"
-            wire:change="onLastUpdates"
+            wire:change="onDaysUpdate"
             class="input is-inline"
             type="number"
             min="1"

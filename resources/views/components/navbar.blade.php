@@ -17,7 +17,7 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route('home') }}">
-                Home
+                Accueil
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
@@ -61,7 +61,7 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-primary">
+                    <a href="{{ route('login') }}" class="button is-primary">
                         <strong>Log in</strong>
                     </a>
                     <a class="button is-primary is-outlined">

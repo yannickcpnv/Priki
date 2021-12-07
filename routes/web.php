@@ -29,3 +29,4 @@ Route::prefix('/practices')->group(function () {
         ->middleware('practice.isPublished');
 });
 
+require __DIR__ . '/auth.php';
