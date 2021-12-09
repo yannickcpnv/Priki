@@ -48,8 +48,8 @@
                         <hr class="navbar-divider">
                         <div class="columns is-multiline is-flex is-justify-content-center">
                             @foreach ($domains as $domain)
-                                <div class="column is-one-third is-flex is-justify-content-center">
-                                    <a class="navbar-item {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
+                                <div class="column is-one-third is-flex">
+                                    <a class="navbar-item w-full is-justify-content-center {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
                                        href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                                     >
                                         {{ $domain->name }}
