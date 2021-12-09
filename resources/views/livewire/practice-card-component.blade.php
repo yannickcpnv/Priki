@@ -8,7 +8,7 @@
     <a class="no-focus message box-shadow flex" href="{{ route('practice', $practice->id) }}">
         <article class="flex flex-col">
             @if (!$this->isDomainSelected())
-                <div class="message-header">{{ $this->practice->domain->name }}</div>
+                <div class="message-header has-background-primary">{{ $this->practice->domain->name }}</div>
             @endif
             <div class="message-body has-text-justified break-all flex-grow flex flex-col">
                 <div class="flex-grow">{{ Str::words($this->practice->description, 50) }}</div>

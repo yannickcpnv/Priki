@@ -1,4 +1,4 @@
 <x-layout>
-    <x-slot name="titlePage">Best practice de {{ $practice->user->name }}</x-slot>
+    <x-slot name="titlePage">Par {{ $practice->user->fullname }}</x-slot>
     <x-practice-details :practice="$practice"/>
 </x-layout>

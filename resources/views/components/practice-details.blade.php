@@ -1,9 +1,9 @@
 <article>
     <div class="is-flex is-justify-content-center">
         <div class="lg:w-3/4">
-            <div class="card mb-3">
-                <header class="card-header">
-                    <p class="card-header-title">
+            <div class="card my-3">
+                <header class="card-header has-background-primary">
+                    <p class="card-header-title has-text-light">
                         {{ $practice->domain->name }}
                     </p>
                 </header>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <a class="button is-link is-light lg:w-1/4" href="{{ url()->previous() }}">Retour</a>
+            <a class="button is-link w-full lg:w-1/4" href="{{ url()->previous() }}">{{ __('Go back') }}</a>
         </div>
     </div>
 </article>
