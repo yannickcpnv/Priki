@@ -19,7 +19,12 @@ class PracticeContainerComponent extends Component
     final public function mount(): void
     {
         $this->days = config('business.last_updated_days');
-        $this->practices = $this->originalPractices;
+        $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
+    }
+
+    private function getLastUpdatesPublished(): void
+    {
+        $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
     }
 
     final public function render(): Factory|View|Application
@@ -32,12 +37,14 @@ class PracticeContainerComponent extends Component
      */
     final public function onDaysUpdate(): void
     {
-        $this->getLastUpdates();
+        $this->getLastUpdatesPublished();
     }
 
-    private function getLastUpdates(): void
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getLastUpdated(): Collection
     {
-        $lastUpdates = Practice::lastUpdates($this->days);
-        $this->practices = $this->originalPractices->intersect($lastUpdates);
+        return Practice::lastUpdates($this->days);
     }
 }

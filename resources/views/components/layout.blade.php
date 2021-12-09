@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $titlePage }}</title>
+    <title>{{ $titlePage ?? '' }}</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @livewireStyles
@@ -20,7 +20,7 @@
     <main>
         <section class="section">
             <div class="container">
-                <h1 class="title">{{ $titlePage }}</h1>
+                <h1 class="title">{{ $titlePage ?? '' }}</h1>
                 {{ $slot }}
             </div>
         </section>

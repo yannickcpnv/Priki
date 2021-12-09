@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import "~bulma/bulma";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
 
 .navbar-item {
     &.has-dropdown {
@@ -19,6 +23,15 @@
             }
         }
     }
+
+    &.is-big-menu {
+        position: static;
+
+        &-title {
+            margin-bottom: 0;
+            padding: .375rem 1rem;
+        }
+    }
 }
 
 .box-shadow {
@@ -29,5 +42,11 @@
 .no-focus {
     &:focus {
         outline: none;
+    }
+}
+
+.has-no-after {
+    &::after {
+        content: "" !important;
     }
 }
