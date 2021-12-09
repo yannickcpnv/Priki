@@ -87,16 +87,14 @@
                     </div>
                 @else
                     <div class="buttons">
-
                         <a href="{{ route('login') }}" class="button is-primary">
-                            <strong>Log in</strong>
+                            <strong>{{ __('Log in') }}</strong>
                         </a>
                         <a class="button is-primary is-outlined">
-                            Sign up
+                            {{ __('Register') }}
                         </a>
-                        @endauth
-
                     </div>
+                @endauth
             </div>
         </div>
     </div>
