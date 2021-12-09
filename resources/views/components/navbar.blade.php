@@ -17,7 +17,7 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route('home') }}">
-                <i class="fas fa-home is-size-4 has-text-link-dark"></i>
+                {{ __('Home') }}
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
