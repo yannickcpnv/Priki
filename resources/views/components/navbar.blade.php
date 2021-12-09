@@ -90,7 +90,7 @@
                         <a href="{{ route('login') }}" class="button is-primary">
                             <strong>{{ __('Log in') }}</strong>
                         </a>
-                        <a class="button is-primary is-outlined">
+                        <a href="{{ route('register') }}" class="button is-primary is-outlined">
                             {{ __('Register') }}
                         </a>
                     </div>

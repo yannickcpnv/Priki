@@ -44,15 +44,25 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900"
                        href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+            </div>
 
-                <x-breeze.button class="ml-3">
+            <div class="flex items-center is-justify-content-space-between mt-4">
+                <a href="{{ route('register') }}">
+                    <x-breeze.button type="button"
+                                     class="bg-transparent text-gray-800 hover:text-white border border-gray-800 hover:border-transparent">
+                        {{ __('Register') }}
+                    </x-breeze.button>
+                </a>
+
+
+                <x-breeze.button>
                     {{ __('Log in') }}
                 </x-breeze.button>
             </div>
