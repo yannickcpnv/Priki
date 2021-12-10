@@ -17,7 +17,7 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route('home') }}">
-                <i class="fas fa-home is-size-4 has-text-link-dark"></i>
+                {{ __('Home') }}
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
@@ -43,17 +43,16 @@
                         <a class="navbar-item is-justify-content-center is-size-5 {{ request()->path() != "domains" ?: 'is-active' }}"
                            href="{{  route('domains') }}"
                         >
-                            Tous ({{ \App\Models\Practice::allPublished()->count() }})
+                            Tous &mdash; {{ \App\Models\Practice::allPublished()->count() }} pratiques
                         </a>
                         <hr class="navbar-divider">
                         <div class="columns is-multiline is-flex is-justify-content-center">
                             @foreach ($domains as $domain)
-                                <div class="column is-one-third is-flex is-justify-content-center">
-                                    <a class="navbar-item {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
+                                <div class="column is-one-third is-flex">
+                                    <a class="navbar-item w-full is-justify-content-center {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
                                        href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                                     >
-                                        {{ $domain->name }}
-                                        ({{ $domain->practices_count }})
+                                        {{ $domain->name }} &#8212; {{ $domain->practices_count }}
                                     </a>
                                 </div>
                             @endforeach
@@ -87,16 +86,14 @@
                     </div>
                 @else
                     <div class="buttons">
-
                         <a href="{{ route('login') }}" class="button is-primary">
-                            <strong>Log in</strong>
+                            <strong>{{ __('Log in') }}</strong>
                         </a>
-                        <a class="button is-primary is-outlined">
-                            Sign up
+                        <a href="{{ route('register') }}" class="button is-primary is-outlined">
+                            {{ __('Register') }}
                         </a>
-                        @endauth
-
                     </div>
+                @endauth
             </div>
         </div>
     </div>
