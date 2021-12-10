@@ -21,6 +21,20 @@
                                 autofocus/>
             </div>
 
+            <!-- Fullname -->
+            <div class="mt-4">
+                <x-breeze.label for="fullname" :value="__('Full name')"/>
+
+                <x-breeze.input id="fullname"
+                                class="block mt-1 w-full"
+                                type="text"
+                                name="fullname"
+                                :value="old('fullname')"
+                                required
+                                autofocus
+                />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-breeze.label for="email" :value="__('Email')"/>

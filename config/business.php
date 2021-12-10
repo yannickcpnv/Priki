@@ -12,4 +12,6 @@ return [
     |
     */
     'last_updated_days' => 5,
+
+    'default_role' => 'MBR',
 ];

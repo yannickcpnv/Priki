@@ -43,7 +43,7 @@
                         <a class="navbar-item is-justify-content-center is-size-5 {{ request()->path() != "domains" ?: 'is-active' }}"
                            href="{{  route('domains') }}"
                         >
-                            Tous ({{ \App\Models\Practice::allPublished()->count() }})
+                            Tous &mdash; {{ \App\Models\Practice::allPublished()->count() }} pratiques
                         </a>
                         <hr class="navbar-divider">
                         <div class="columns is-multiline is-flex is-justify-content-center">
@@ -52,8 +52,7 @@
                                     <a class="navbar-item w-full is-justify-content-center {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
                                        href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                                     >
-                                        {{ $domain->name }}
-                                        ({{ $domain->practices_count }})
+                                        {{ $domain->name }} &#8212; {{ $domain->practices_count }}
                                     </a>
                                 </div>
                             @endforeach
