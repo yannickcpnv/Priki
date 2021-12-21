@@ -31,7 +31,7 @@ class Opinion extends Model
      *
      * @return BelongsToMany
      */
-    final public function users(): BelongsToMany
+    final public function comments(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_opinion')
             ->withPivot('comment', 'points')

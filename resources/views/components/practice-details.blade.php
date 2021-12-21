@@ -2,12 +2,12 @@
     <div class="is-flex is-justify-content-center">
         <div class="card my-3">
             <header class="card-header has-background-primary">
-                <p class="card-header-title has-text-light">
+                <h2 class="card-header-title has-text-light">
                     {{ $practice->domain->name }}
-                </p>
+                </h2>
             </header>
             <div class="card-content">
-                <div class="content has-text-justified">
+                <section class="content has-text-justified">
                     <div>
                         {{ $practice->description }}
                     </div>
@@ -24,7 +24,10 @@
                             </time>
                         </em>
                     </div>
-                </div>
+                </section>
+            </div>
+            <div class="px-4">
+                <x-opinions-container :opinions="$practice->opinions"/>
             </div>
         </div>
     </div>
