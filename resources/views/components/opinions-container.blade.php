@@ -27,7 +27,13 @@
                                 <dt>Références</dt>
                                 @foreach($opinion->references as $reference)
                                     <dd>
-                                        {{ $reference->description }}
+                                        @if ($reference->url)
+                                            <a href="{{ $reference->url }}" target="_blank">
+                                                {{ $reference->description }}
+                                            </a>
+                                        @else
+                                            {{ $reference->description }}
+                                        @endif
                                     </dd>
                                 @endforeach
                             </dl>
