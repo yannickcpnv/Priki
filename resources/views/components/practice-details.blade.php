@@ -1,5 +1,5 @@
 <article>
-    <div class="is-flex is-justify-content-center">
+    <div class="is-flex is-flex-direction-column is-justify-content-center">
         <div class="card my-3">
             <header class="card-header has-background-primary">
                 <h2 class="card-header-title has-text-light">
@@ -26,11 +26,12 @@
                     </div>
                 </section>
             </div>
-            <div class="px-4">
-                @if ($practice->opinions->count())
-                    <x-opinions-container :opinions="$practice->opinions"/>
-                @endif
-            </div>
+        </div>
+
+        <div class="p-4">
+            @if ($practice->opinions->count())
+                <x-opinions-container :opinions="$practice->opinions"/>
+            @endif
         </div>
     </div>
 </article>

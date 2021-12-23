@@ -15,7 +15,7 @@
     <script defer src="{{ mix('js/app.js') }}"></script>
     @stack('custom-scripts')
 </head>
-<body class="is-family-code">
+<body>
     <x-navbar/>
     <main>
         <section class="section">

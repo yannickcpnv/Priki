@@ -37,4 +37,14 @@ class Opinion extends Model
             ->withPivot('comment', 'points')
             ->as('feedback');
     }
+
+    /**
+     * Retrieve all reference linked to this opinion.
+     *
+     * @return BelongsToMany
+     */
+    final public function references(): BelongsToMany
+    {
+        return $this->belongsToMany(Reference::class, 'opinion_reference');
+    }
 }
