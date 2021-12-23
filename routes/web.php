@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\ReferenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,7 @@ Route::prefix('/practices')->group(function () {
         ->name('practice')
         ->middleware('practice.isPublished');
 });
+
+Route::resource('references', ReferenceController::class);
 
 require __DIR__ . '/auth.php';
