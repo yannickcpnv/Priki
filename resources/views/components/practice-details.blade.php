@@ -27,7 +27,9 @@
                 </section>
             </div>
             <div class="px-4">
-                <x-opinions-container :opinions="$practice->opinions"/>
+                @if ($practice->opinions->count())
+                    <x-opinions-container :opinions="$practice->opinions"/>
+                @endif
             </div>
         </div>
     </div>
