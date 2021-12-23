@@ -1,37 +1,68 @@
-<section class="card px-3"
+<section class="columns is-desktop is-multiline"
          x-data="{selected: null}"
 >
-    <h3 class="subtitle">Opinions</h3>
     @foreach ($opinions as $opinionIndex => $opinion)
-        <div x-data="{ key: {{ $opinionIndex }} }"
+        <div class="column"
+             x-data="{ key: {{ $opinionIndex }} }"
              @click="selected = selected !== key ? key : null"
         >
-            <div class="pb-1">{{ $opinion->description }}</div>
-            <div class="pb-1">Auteur : <a href="#">{{ $opinion->user->name }}</a></div>
-            <div class="pb-1">Date de création : {{ $opinion->created_at->isoFormat('LL') }}</div>
-            <div class="pb-1">Nombre de retours : {{ $opinion->comments()->count() }}</div>
-            <div class="pb-1">+/- : {{ $opinion->comments()->sum('points') }}</div>
-            <h4 class="subtitle">Commentaires</h4>
-            <section class="ml-3 relative overflow-hidden transition-all max-h-0 duration-700"
-                     x-ref="container"
-                     x-bind:style="selected === key ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''"
-            >
-                @if ($opinion->comments()->count() > 0)
-                    @foreach ($opinion->comments as $comment)
-                        <div class="pb-1
-                                @if($comment->feedback->points > 0) has-text-success
-                                @elseif ($comment->feedback->points < 0) has-text-danger @endif">
-                            <a href="#">{{ $comment->name }}</a> :
-                            {{ $comment->feedback->comment }}, {{ $comment->feedback->points }}pts.
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="icon is-large">
+                                <em class="far fa-user-circle fa-2x"></em>
+                            </span>
                         </div>
-                    @endforeach
-                @else
-                    <p>Il n'y a pas de commentaire pour l'instant.</p>
-                @endif
-            </section>
+                        <div class="media-content">
+                            <p class="title is-4"><a href="#">{{ $opinion->user->name }}</a></p>
+                            <p class="subtitle is-6">{{ '@'.$opinion->user->email }}</p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <p>{{ $opinion->description }}</p>
+                        @if ($opinion->references->count())
+                            <dl>
+                                <dt>Références</dt>
+                                @foreach($opinion->references as $reference)
+                                    <dd>
+                                        @if ($reference->url)
+                                            <a href="{{ $reference->url }}" target="_blank">
+                                                {{ $reference->description }}
+                                            </a>
+                                        @else
+                                            {{ $reference->description }}
+                                        @endif
+                                    </dd>
+                                @endforeach
+                            </dl>
+                        @endif
+                        <div class="has-text-right">
+                            <time datetime="{{ $opinion->created_at }}">
+                                {{ $opinion->created_at->isoFormat('LL') }}
+                            </time>
+                        </div>
+
+                        @if ($opinion->comments()->count() > 0)
+                            <p>Commentaires</p>
+                            <dl class="ml-3 relative overflow-hidden transition-all max-h-0 duration-700"
+                                x-ref="container"
+                                x-bind:style="selected === key ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''">
+                                @foreach ($opinion->comments as $comment)
+                                    <dt><a href="#">{{ $comment->name }}</a></dt>
+                                    <dd class="@if($comment->feedback->points > 0) has-text-success
+                                               @elseif ($comment->feedback->points < 0) has-text-danger @endif">
+                                        {{ $comment->feedback->comment }}, {{ $comment->feedback->points }}pts.
+                                    </dd>
+                                @endforeach
+                            </dl>
+                        @else
+                            <p>Il n'y a pas de commentaire pour l'instant.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
-        @if ($opinionIndex !== $opinion->comments()->count() - 1)
-            <div class="divider"></div>
-        @endif
     @endforeach
 </section>

@@ -3,7 +3,7 @@
 
     <section class="content">
         <table>
-            <caption>Références avec lien</caption>
+            <caption>Liste</caption>
             <thead>
                 <tr>
                     <th id="description">Description</th>

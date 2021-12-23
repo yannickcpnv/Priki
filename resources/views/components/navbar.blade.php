@@ -83,7 +83,6 @@
                                             {{ __('Log Out') }}
                                         </button>
                                     </form>
-
                                 </a>
                             </div>
                         </div>
