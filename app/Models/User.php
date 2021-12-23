@@ -17,6 +17,8 @@ class User extends Authenticatable
 
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const DEFAULT_ROLE = 'MBR';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,6 +69,6 @@ class User extends Authenticatable
 
     private static function defaultRole(): Role
     {
-        return Role::whereSlug(config('business.default_role'))->first();
+        return Role::whereSlug(config('business.user.default_role'))->first();
     }
 }

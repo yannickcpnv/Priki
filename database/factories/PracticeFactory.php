@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Domain;
 use App\Models\PublicationState;
+use JetBrains\PhpStorm\ArrayShape;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PracticeFactory extends Factory
@@ -15,7 +16,12 @@ class PracticeFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    #[ArrayShape([
+        'description'          => "string",
+        'domain_id'            => "int",
+        'publication_state_id' => "int",
+        'user_id'              => "int",
+    ])] public function definition(): array
     {
         return [
             'description'          => $this->faker->realText(5000),

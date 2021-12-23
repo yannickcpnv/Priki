@@ -40,7 +40,7 @@
                 </div>
                 <div class="navbar-dropdown">
                     <div class="container is-fluid">
-                        <a class="navbar-item is-justify-content-center is-size-5 {{ request()->path() != "domains" ?: 'is-active' }}"
+                        <a class="navbar-item is-justify-content-center is-size-5 {{ request()->path() !== "domains" ?: 'is-active' }}"
                            href="{{  route('domains') }}"
                         >
                             Tous &mdash; {{ \App\Models\Practice::allPublished()->count() }} pratiques
@@ -49,7 +49,7 @@
                         <div class="columns is-multiline is-flex is-justify-content-center">
                             @foreach ($domains as $domain)
                                 <div class="column is-one-third is-flex">
-                                    <a class="navbar-item w-full is-justify-content-center {{ request()->path() == "domains/".$domain->slug ? 'is-active' : '' }}"
+                                    <a class="navbar-item w-full is-justify-content-center {{ request()->path() === "domains/".$domain->slug ? 'is-active' : '' }}"
                                        href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                                     >
                                         {{ $domain->name }} &#8212; {{ $domain->practices_count }}
@@ -60,6 +60,10 @@
                     </div>
                 </div>
             </div>
+
+            <a href="{{ route('references.index') }}" class="navbar-item">
+                Références
+            </a>
         </div>
 
         <div class="navbar-end">

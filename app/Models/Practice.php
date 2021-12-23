@@ -36,11 +36,11 @@ class Practice extends Model
     private static function allPublishedQuery(string $with = null): Builder
     {
         $relation = 'publicationState';
-        $callback = fn($publicationState) => $publicationState->where('slug', DOMAIN::PUBLISHED);
+        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
 
         return is_null($with)
-            ? Practice::whereHas($relation, $callback)
-            : Practice::with($with)->whereHas($relation, $callback);
+            ? self::whereHas($relation, $callback)
+            : self::with($with)->whereHas($relation, $callback);
     }
 
     /**
@@ -73,12 +73,12 @@ class Practice extends Model
     final public static function lastUpdates(int $days): Collection
     {
         $dateSubDay = Carbon::now()->subDays($days);
-        return Practice::where('updated_at', '>=', $dateSubDay)->get();
+        return self::where('updated_at', '>=', $dateSubDay)->get();
     }
 
     final public function isPublished(): bool
     {
-        return $this->publicationState->slug == Domain::PUBLISHED;
+        return $this->publicationState->slug === config('business.domain.published');
     }
 
     //endregion
