@@ -8,9 +8,9 @@
         >
             <div class="card">
                 <div class="card-content">
-                    <div class="media">
+                    <div class="media is-align-items-center">
                         <div class="media-left">
-                            <span class="icon is-large">
+                            <span class="icon is-medium">
                                 <em class="far fa-user-circle fa-2x"></em>
                             </span>
                         </div>
@@ -39,9 +39,12 @@
                             </dl>
                         @endif
                         <div class="has-text-right">
-                            <time datetime="{{ $opinion->created_at }}">
-                                {{ $opinion->created_at->isoFormat('LL') }}
-                            </time>
+                            <em>
+                                Crée le
+                                <time datetime="{{ $opinion->created_at }}">
+                                    {{ $opinion->created_at->isoFormat('LL') }}
+                                </time>
+                            </em>
                         </div>
 
                         @if ($opinion->comments()->count() > 0)
