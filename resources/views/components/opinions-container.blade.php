@@ -6,7 +6,7 @@
              x-data="{ key: {{ $opinionIndex }} }"
              @click="selected = selected !== key ? key : null"
         >
-            <div class="card">
+            <div class="card is-clickable anim-for-click">
                 <div class="card-content">
                     <div class="media is-align-items-center">
                         <div class="media-left">
@@ -54,9 +54,13 @@
                                 x-bind:style="selected === key ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''">
                                 @foreach ($opinion->comments as $comment)
                                     <dt><a href="#">{{ $comment->name }}</a></dt>
-                                    <dd class="@if($comment->feedback->points > 0) has-text-success
-                                               @elseif ($comment->feedback->points < 0) has-text-danger @endif">
-                                        {{ $comment->feedback->comment }}, {{ $comment->feedback->points }}pts.
+                                    <dd>
+                                        {{ $comment->feedback->comment }},
+                                        <span class="@if($comment->feedback->points > 0) has-text-success
+                                                     @elseif ($comment->feedback->points < 0) has-text-danger @endif"
+                                        >
+                                            {{ $comment->feedback->points }}pts.
+                                        </span>
                                     </dd>
                                 @endforeach
                             </dl>
