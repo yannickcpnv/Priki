@@ -4,11 +4,11 @@ namespace Database\Factories;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
-use JetBrains\PhpStorm\ArrayShape;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 class UserFactory extends Factory
 {
@@ -35,7 +35,7 @@ class UserFactory extends Factory
         'remember_token'    => "string",
     ])] public function definition(): array
     {
-        $firstName = $this->faker->firstName();
+        $firstName = $this->faker->unique->firstName();
         return [
             'role_id'           => Role::all()->random()->id,
             'name'              => $firstName,
