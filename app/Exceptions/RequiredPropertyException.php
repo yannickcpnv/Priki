@@ -4,12 +4,13 @@ namespace App\Exceptions;
 
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 
 class RequiredPropertyException extends Exception
 {
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(string $parameterClass, string $parameterName, string $className)
     {

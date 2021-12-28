@@ -32,10 +32,20 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            $this->handleException($e);
         });
+    }
+
+    /**
+     * Handle exception.
+     *
+     * @param Throwable $e
+     */
+    public function handleException(Throwable $e): void
+    {
+        // Add your code here...
     }
 }

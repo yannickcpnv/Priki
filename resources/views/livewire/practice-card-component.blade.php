@@ -1,9 +1,5 @@
 <div
-    class="
-        {{ $this->classes ?? '' }}
-        hover:scale-110 hover:cursor-pointer hover:z-10
-        transition duration-500 animate-fade-in-up
-    "
+    class="{{ $this->classes ?? '' }} anim-for-click"
 >
     <a class="no-focus message box-shadow flex" href="{{ route('practice', $practice->id) }}">
         <article class="flex flex-col">
