@@ -6,7 +6,7 @@
              x-data="{ key: {{ $opinionIndex }} }"
              @click="selected = selected !== key ? key : null"
         >
-            <div class="card is-clickable anim-for-click">
+            <div class="card {{ $opinion->comments()->count() > 0 ? 'is-clickable anim-for-click' : '' }}">
                 <div class="card-content">
                     <div class="media is-align-items-center">
                         <div class="media-left">

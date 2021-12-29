@@ -63,6 +63,7 @@
             "npm run dev",
             "@composer generate:key"
         ],
+        "serve": "@php artisan serve",
         "copy:env": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
         "generate:key": "@php artisan key:generate --ansi",
         "m:f-s": "@php artisan migrate:fresh --seed"
