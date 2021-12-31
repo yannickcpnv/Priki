@@ -17,7 +17,29 @@
                         <button class="delete" aria-label="close" @click="open = false"></button>
                     </header>
                     <section class="modal-card-body">
-                        Modal content
+                        <div class="field">
+                            <label class="label" for="description">Description</label>
+                            <div class="control">
+                                <input class="input"
+                                       id="description"
+                                       name="description"
+                                       placeholder="Description"
+                                       type="text"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="url">Url</label>
+                            <div class="control">
+                                <input class="input"
+                                       id="url"
+                                       name="url"
+                                       placeholder="Url"
+                                       type="text"
+                                >
+                            </div>
+                        </div>
                     </section>
                     <footer class="modal-card-foot">
                         <input type="submit" class="button is-success" value="Save Changes">
