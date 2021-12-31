@@ -18,9 +18,13 @@
 <body>
     <x-navbar/>
     <main>
+
         <section class="section">
             <div class="container">
-                <h1 class="title">{{ $titlePage ?? '' }}</h1>
+                <h1 {{ $titlePage->attributes->class(['title']) }}>
+                    {{ $titlePage ?? '' }}
+                </h1>
+
                 {{ $slot }}
             </div>
         </section>

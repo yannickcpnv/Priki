@@ -19,26 +19,29 @@ class ReferenceController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('pages.references-list', ['references' => Reference::all()]);
+        return view('pages.reference.list', ['references' => Reference::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @return Factory|View|Application
      */
-    public function create(): void
+    public function create(): Factory|View|Application
     {
-        throw new NotImplementedException();
+        return view('pages.reference.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @return Factory|View|Application
      */
-    public function store(Request $request): void
+    public function store(Request $request): Factory|View|Application
     {
-        throw new NotImplementedException();
+        return view('pages.reference.list', ['references' => Reference::all()]);
     }
 
     /**
