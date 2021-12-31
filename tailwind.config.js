@@ -18,9 +18,20 @@ module.exports = {
                     transform: 'translateY(0)',
                 },
             },
+            'leave-start-end': {
+                '0%': {
+                    opacity: '1',
+                    transform: 'scale(1)',
+                },
+                '100%': {
+                    opacity: '0',
+                    transform: 'scale(0.9)',
+                },
+            },
         },
         animation: {
             'fade-in-up': 'fade-in-up 0.5s ease-out',
+            'leave': 'leave-start-end 0.3s ease-in',
         },
     },
     variants: {
@@ -32,4 +43,4 @@ module.exports = {
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography')],
-}
+};
