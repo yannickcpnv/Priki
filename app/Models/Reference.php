@@ -22,6 +22,6 @@ class Reference extends Model
 
     public function hasUrl(): bool
     {
-        return $this->url !== 'NULL';
+        return !is_null($this->url);
     }
 }

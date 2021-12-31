@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Nette\NotImplementedException;
@@ -9,6 +10,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\QueryException;
 use Illuminate\Contracts\Foundation\Application;
 
 class ReferenceController extends Controller
@@ -43,13 +45,18 @@ class ReferenceController extends Controller
      */
     public function store(Request $request): Redirector|Application|RedirectResponse
     {
-        Reference::create(
-            [
-                'description' => $request->input('description'),
-                'url'         => $request->input('url'),
-            ]
-        );
-        return redirect(route('references.index'))->with('success', __('business.reference.added'));
+        try {
+            Reference::create(
+                [
+                    'description' => $request->input('description'),
+                    'url'         => $request->input('url'),
+                ]
+            );
+            return redirect(route('references.index'))->with('success', __('business.reference.added'));
+        } catch (QueryException $e) {
+            Log::Error($e->getMessage());
+            return redirect(route('references.index'))->with('error', __('business.reference.error.unique url'));
+        }
     }
 
     /**
