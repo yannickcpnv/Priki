@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Nette\NotImplementedException;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -37,11 +39,11 @@ class ReferenceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Factory|View|Application
+     * @return Redirector|Application|RedirectResponse
      */
-    public function store(Request $request): Factory|View|Application
+    public function store(Request $request): Redirector|Application|RedirectResponse
     {
-        return view('pages.reference.list', ['references' => Reference::all()]);
+        return redirect(route('references.index'))->with('success', __('business.reference.added'));
     }
 
     /**

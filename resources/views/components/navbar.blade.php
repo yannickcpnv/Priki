@@ -26,7 +26,7 @@
                 </a>
 
                 <div id="roles-dropdown" class="navbar-dropdown">
-                    @foreach (\App\Models\Role::all() as $role)
+                    @foreach ($roles as $role)
                         <a class="navbar-item">
                             {{ $role->name }}
                         </a>
@@ -36,19 +36,19 @@
 
 
             <div class="navbar-item has-dropdown is-hoverable" data-target="domains-dropdown">
-                <a class="navbar-link {{ !str_contains(request()->path(), 'domains') ?: 'has-text-link' }}">
+                <a @class(['navbar-link', 'has-text-link' => $isOneOfDomainsRoute()])>
                     Domaine
                 </a>
 
                 <div id="domains-dropdown" class="navbar-dropdown">
-                    <a class="navbar-item is-danger {{ request()->path() === "domains" ? 'is-active' : '' }}"
-                       href="{{  route('domains') }}"
+                    <a @class(['navbar-item', 'is-danger', 'is-active' => $isDomainIndexRoute()])
+                       href="{{ route('domains') }}"
                     >
-                        Tous ({{ \App\Models\Practice::allPublished()->count() }})
+                        Tous ({{ $practicesPublished->count() }})
                     </a>
                     <hr class="navbar-divider">
                     @foreach ($domains as $domain)
-                        <a class="navbar-item {{ request()->path() === "domains/".$domain->slug ? 'is-active' : '' }}"
+                        <a @class(['navbar-item', 'is-active' => $isADomainRoute($domain)])
                            href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
                         >
                             {{ $domain->name }}
@@ -58,7 +58,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('references.index') }}" class="navbar-item">
+            <a @class(['navbar-item', 'is-active' => $isAReferenceRoute()])
+               href="{{ route('references.index') }}">
                 Références
             </a>
         </div>

@@ -26,6 +26,10 @@
         }
     }
 
+    &.is-active {
+        color: $link !important;
+    }
+
     &.is-big-menu {
         position: static;
 

@@ -1,20 +1,11 @@
 <x-layout>
     <x-slot name="titlePage">Liste des références</x-slot>
 
-    <div x-data="{ open: false }">
-        <a href="{{ route('references.create') }}" class="button is-primary">Ajouter une référence</a>
-
-        <div class="modal is-active"
-             x-show="open"
-        >
-            <div class="modal-background"></div>
-            <div class="modal-card"
-                 @click.away="open = false"
-            >
-
-            </div>
-        </div>
+    <div class="block">
+        <x-flash-message/>
     </div>
+
+    <a href="{{ route('references.create') }}" class="button is-primary">Ajouter une référence</a>
 
     <section class="content">
         <table>
