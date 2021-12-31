@@ -43,6 +43,12 @@ class ReferenceController extends Controller
      */
     public function store(Request $request): Redirector|Application|RedirectResponse
     {
+        Reference::create(
+            [
+                'description' => $request->input('description'),
+                'url'         => $request->input('url'),
+            ]
+        );
         return redirect(route('references.index'))->with('success', __('business.reference.added'));
     }
 

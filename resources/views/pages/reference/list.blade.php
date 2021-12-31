@@ -20,7 +20,7 @@
                     <tr>
                         <td>
                             {{ $reference->description }}
-                            @if ($reference->url)
+                            @if ($reference->hasUrl())
                                 <a href="{{ $reference->url }}" target="_blank">
                                     <span class="icon is-small">
                                         <em class="fas fa-external-link-alt"></em>
