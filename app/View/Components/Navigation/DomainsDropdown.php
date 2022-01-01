@@ -1,29 +1,24 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Navigation;
 
-use App\Models\Role;
 use App\Models\Domain;
 use App\Models\Practice;
 use Illuminate\View\Component;
-use Illuminate\Contracts\View\View;
 
-class Navbar extends Component
+class DomainsDropdown extends Component
 {
 
     private string $requestPath;
 
-    public function __construct()
-    {
-        $this->requestPath = request()?->path();
-    }
+    public function __construct() { $this->requestPath = request()?->path(); }
 
-    public function render(): View
+    public function render()
     {
-        return view('components.navbar', [
+        return view('components.navigation.domains-dropdown', [
             'domains'            => Domain::allWithPracticePublishedCount(),
-            'roles'              => Role::all(),
             'practicesPublished' => Practice::allPublished(),
+            'requestPath'        => $this->requestPath,
         ]);
     }
 
@@ -32,6 +27,4 @@ class Navbar extends Component
     public function isDomainIndexRoute(): bool { return $this->requestPath === "domains"; }
 
     public function isADomainRoute(Domain $domain): bool { return $this->requestPath === "domains/" . $domain->slug; }
-
-    public function isAReferenceRoute(): bool { return str_contains($this->requestPath, 'references'); }
 }

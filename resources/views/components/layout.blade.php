@@ -16,7 +16,8 @@
     @stack('custom-scripts')
 </head>
 <body>
-    <x-navbar/>
+    <x-navigation.navbar/>
+
     <main>
 
         <section class="section">
