@@ -23,9 +23,9 @@
             @endforeach
         </div>
     @else
-        <livewire:message-component
+        <x-message
             :message="'Aucune pratique à afficher ici'"
-            :message-type="'info'"
+            :type="'info'"
         />
     @endif
 </section>

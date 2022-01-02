@@ -1,7 +1,11 @@
 .anim-for-click {
     &:hover { transform: scale(1.025) }
 
-    @apply hover:cursor-pointer hover:z-10;
+    .is-clickable:hover {
+        opacity: 0.5;
+    }
+
+    @apply hover:z-10;
 
     @apply transition duration-500 animate-fade-in-up;
 }
