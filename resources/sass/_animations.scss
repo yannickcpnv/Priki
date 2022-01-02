@@ -1,8 +1,15 @@
 .anim-for-click {
-    &:hover {
-        transform: scale(1.025);
-    }
+    &:hover { transform: scale(1.025) }
 
     @apply hover:cursor-pointer hover:z-10;
+
     @apply transition duration-500 animate-fade-in-up;
+}
+
+.anim-leave {
+    @apply transition ease-in duration-500;
+
+    &-start { @apply opacity-100 transform scale-100 }
+
+    &-end { @apply opacity-0 transform scale-90 }
 }

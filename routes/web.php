@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\OpinionController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ReferenceController;
 
@@ -29,6 +30,10 @@ Route::prefix('/practices')->group(function () {
     Route::get('/{practice}', [PracticeController::class, 'consultPractice'])
         ->name('practice')
         ->middleware('practice.isPublished');
+});
+
+Route::prefix('/opinions')->group(function () {
+    Route::post('/comment', [OpinionController::class, 'storeComment'])->name('opinions.comment.store');
 });
 
 Route::resource('references', ReferenceController::class);
