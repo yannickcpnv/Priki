@@ -1,3 +1,5 @@
+@props(['practice'])
+
 <article>
     <div class="is-flex is-flex-direction-column is-justify-content-center">
         <div class="card my-3">
@@ -30,7 +32,7 @@
 
         <div class="p-4">
             @if ($practice->opinions->count())
-                <x-opinions-container :opinions="$practice->opinions"/>
+                <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
             @endif
         </div>
     </div>

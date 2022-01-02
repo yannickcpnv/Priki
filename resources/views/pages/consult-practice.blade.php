@@ -1,4 +1,5 @@
 <x-layout>
+    <x-flash-message/>
     <div class="is-flex is-justify-content-center">
         <div class="md:w-3/4">
             <x-slot name="titlePage">Par {{ $practice->user->fullname }}</x-slot>

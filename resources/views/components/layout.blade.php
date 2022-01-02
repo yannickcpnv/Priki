@@ -22,9 +22,11 @@
 
         <section class="section">
             <div class="container">
-                <h1 {{ $titlePage->attributes->class(['title']) }}>
-                    {{ $titlePage ?? '' }}
-                </h1>
+                @isset ($titlePage)
+                    <h1 {{ $titlePage->attributes->merge(['class' => 'title is-2']) }}>
+                        {{ $titlePage }}
+                    </h1>
+                @endisset
 
                 {{ $slot }}
             </div>

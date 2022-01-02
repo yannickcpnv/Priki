@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use JetBrains\PhpStorm\ArrayShape;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,6 +40,26 @@ class Opinion extends Model
     }
 
     /**
+     * Get the number of up votes for this opinion.
+     *
+     * @return int
+     */
+    final public function upVotes(): int
+    {
+        return $this->comments()->wherePivot('points', '>', 0)->count();
+    }
+
+    /**
+     * Get the number of down votes for this opinion.
+     *
+     * @return int
+     */
+    final public function downVotes(): int
+    {
+        return $this->comments()->wherePivot('points', '<', 0)->count();
+    }
+
+    /**
      * Retrieve all reference linked to this opinion.
      *
      * @return BelongsToMany
@@ -46,5 +67,24 @@ class Opinion extends Model
     final public function references(): BelongsToMany
     {
         return $this->belongsToMany(Reference::class, 'opinion_reference');
+    }
+
+    /**
+     * Add a new comment from a user to this opinion.
+     *
+     * @param User  $user
+     * @param array $values
+     */
+    final public function addComment(
+        User $user,
+        #[ArrayShape([
+            'comment' => 'string',
+            'points'  => 'string',
+        ])] array $values
+    ): void {
+        $this->comments()->attach($user->id, [
+            'comment' => $values['comment'],
+            'points'  => $values['points'],
+        ]);
     }
 }
