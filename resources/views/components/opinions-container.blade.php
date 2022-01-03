@@ -99,5 +99,8 @@
         <x-forms.opinion-form :practiceId="$practice->id"/>
     @else
         <x-message :message="'Vous devez être connecté pour poster une opinion.'" :type="'warning'"/>
+        <a href="{{ route('login') }}" class="button is-primary">
+            <strong>{{ __('Log in') }}</strong>
+        </a>
     @endauth
 </section>
