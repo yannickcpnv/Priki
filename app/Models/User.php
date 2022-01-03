@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +18,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasApiTokens;
 
-    public const DEFAULT_ROLE = 'MBR';
+    //region Laravel fields
 
     /**
      * The attributes that are mass assignable.
@@ -53,21 +52,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Create a new model and return the instance.
-     *
-     * @param array $attributes
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    final public static function create(array $attributes = []): Model
-    {
-        if (!array_key_exists('role_id', $attributes)) {
-            $attributes['role_id'] = self::defaultRole()->id;
-        }
+    //endregion
 
-        return (new self())->newQuery()->create($attributes);
-    }
+    //region Methods
 
     /**
      * Check if the user has already given his opinion to a practice.
@@ -81,8 +68,22 @@ class User extends Authenticatable
         return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    final protected static function booted(): void
+    {
+        static::creating(function (User $user) {
+            $user->role_id = $user->role_id ?? self::defaultRole()->id;
+        });
+    }
+
     private static function defaultRole(): Role
     {
         return Role::whereSlug(config('business.user.default_role'))->first();
     }
+
+    //endregion
 }
