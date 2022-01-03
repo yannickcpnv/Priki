@@ -37,7 +37,7 @@
 
     <div class="field">
         <div class="control has-text-right">
-            <input type="submit" class="button is-success" value="Ajouter le commentaire">
+            <input type="submit" class="button is-primary" value="Commenter">
         </div>
     </div>
 </form>

@@ -20,7 +20,7 @@ class Reference extends Model
         'url',
     ];
 
-    public function hasUrl(): bool
+    final public function hasUrl(): bool
     {
         return !is_null($this->url);
     }

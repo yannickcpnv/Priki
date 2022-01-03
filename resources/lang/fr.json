@@ -322,6 +322,7 @@
     "Log Out": "Se déconnecter",
     "Log Out Other Browser Sessions": "Déconnecter les sessions ouvertes sur d'autres navigateurs",
     "Login": "Connexion",
+    "Login needed": "Vous devez être <a href='/login'>connecté</a> pour :action.",
     "Logout": "Déconnexion",
     "Luxembourg": "Luxembourg",
     "Macao": "Macao",

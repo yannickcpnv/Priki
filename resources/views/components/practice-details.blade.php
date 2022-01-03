@@ -31,9 +31,7 @@
         </div>
 
         <div class="p-4">
-            @if ($practice->opinions->count())
-                <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
-            @endif
+            <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
         </div>
     </div>
 </article>

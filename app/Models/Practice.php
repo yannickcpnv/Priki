@@ -18,7 +18,6 @@ class Practice extends Model
 
     use HasFactory;
 
-
     //region Methods
 
     /**
@@ -31,16 +30,6 @@ class Practice extends Model
     final public static function allPublished(string $with = null): Collection
     {
         return self::allPublishedQuery($with)->get();
-    }
-
-    private static function allPublishedQuery(string $with = null): Builder
-    {
-        $relation = 'publicationState';
-        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
-
-        return is_null($with)
-            ? self::whereHas($relation, $callback)
-            : self::with($with)->whereHas($relation, $callback);
     }
 
     /**
@@ -81,8 +70,17 @@ class Practice extends Model
         return $this->publicationState->slug === config('business.domain.published');
     }
 
-    //endregion
+    private static function allPublishedQuery(string $with = null): Builder
+    {
+        $relation = 'publicationState';
+        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
 
+        return is_null($with)
+            ? self::whereHas($relation, $callback)
+            : self::with($with)->whereHas($relation, $callback);
+    }
+
+    //endregion
 
     //region Accessors
 

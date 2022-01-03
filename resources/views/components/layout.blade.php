@@ -28,6 +28,8 @@
                     </h1>
                 @endisset
 
+                <x-flash-message/>
+
                 {{ $slot }}
             </div>
         </section>

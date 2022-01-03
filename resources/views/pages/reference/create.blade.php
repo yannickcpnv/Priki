@@ -40,7 +40,7 @@
 
                     <div class="field">
                         <div class="control">
-                            <input type="submit" class="button is-success is-fullwidth" value="Créer">
+                            <input type="submit" class="button is-primary is-fullwidth" value="Créer">
                         </div>
                     </div>
                 </form>

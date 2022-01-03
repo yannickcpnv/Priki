@@ -7,5 +7,5 @@
     x-transition:leave-end="anim-leave-end"
 >
     <button class="delete" @click="show = false"></button>
-    {{ $message }}
+    {!! $message !!}
 </article>
