@@ -96,6 +96,7 @@
 
     <h3 class="title is-4">Ajouter une opinion</h3>
     @auth
+        <x-forms.opinion-form :practiceId="$practice->id"/>
     @else
         <x-message :message="'Vous devez être connecté pour poster une opinion.'" :type="'warning'"/>
     @endauth

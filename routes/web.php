@@ -34,6 +34,7 @@ Route::prefix('/practices')->group(function () {
 
 Route::prefix('/opinions')->group(function () {
     Route::post('/comment', [OpinionController::class, 'storeComment'])->name('opinions.comment.store');
+    Route::post('/opinion', [OpinionController::class, 'store'])->name('opinions.store');
 });
 
 Route::resource('references', ReferenceController::class);
