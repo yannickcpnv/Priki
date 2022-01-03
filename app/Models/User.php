@@ -15,7 +15,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+    use HasApiTokens;
 
     public const DEFAULT_ROLE = 'MBR';
 
@@ -58,13 +60,25 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public static function create(array $attributes = []): Model
+    final public static function create(array $attributes = []): Model
     {
         if (!array_key_exists('role_id', $attributes)) {
             $attributes['role_id'] = self::defaultRole()->id;
         }
 
-        return (new self)->newQuery()->create($attributes);
+        return (new self())->newQuery()->create($attributes);
+    }
+
+    /**
+     * Check if the user has already given his opinion to a practice.
+     *
+     * @param Practice $practice
+     *
+     * @return bool
+     */
+    final public function hasGivenOpinionTo(Practice $practice): bool
+    {
+        return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
     private static function defaultRole(): Role

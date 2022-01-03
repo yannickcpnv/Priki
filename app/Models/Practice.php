@@ -33,16 +33,6 @@ class Practice extends Model
         return self::allPublishedQuery($with)->get();
     }
 
-    private static function allPublishedQuery(string $with = null): Builder
-    {
-        $relation = 'publicationState';
-        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
-
-        return is_null($with)
-            ? self::whereHas($relation, $callback)
-            : self::with($with)->whereHas($relation, $callback);
-    }
-
     /**
      * Retrieve all published story by a specific relation.
      *
@@ -79,6 +69,16 @@ class Practice extends Model
     final public function isPublished(): bool
     {
         return $this->publicationState->slug === config('business.domain.published');
+    }
+
+    private static function allPublishedQuery(string $with = null): Builder
+    {
+        $relation = 'publicationState';
+        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
+
+        return is_null($with)
+            ? self::whereHas($relation, $callback)
+            : self::with($with)->whereHas($relation, $callback);
     }
 
     //endregion

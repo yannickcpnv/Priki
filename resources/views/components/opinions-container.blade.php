@@ -82,7 +82,7 @@
                             @else
                                 <x-message
                                     :message="'Vous devez être connecté pour poster un commentaire.'"
-                                    :type="'warning'"
+                                    :type="'info'"
                                 />
                             @endauth
                         </div>
@@ -96,9 +96,13 @@
 
     <h3 class="title is-4">Ajouter une opinion</h3>
     @auth
-        <x-forms.opinion-form :practiceId="$practice->id"/>
+        @if (Auth::user()->hasGivenOpinionTo($practice))
+            <x-message :message="'Vous avez déjà donné votre opinion pour cette practice.'" :type="'info'"/>
+        @else
+            <x-forms.opinion-form :practiceId="$practice->id"/>
+        @endif
     @else
-        <x-message :message="'Vous devez être connecté pour poster une opinion.'" :type="'warning'"/>
+        <x-message :message="'Vous devez être connecté pour poster une opinion.'" :type="'info'"/>
         <a href="{{ route('login') }}" class="button is-primary">
             <strong>{{ __('Log in') }}</strong>
         </a>

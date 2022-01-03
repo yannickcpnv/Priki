@@ -18,6 +18,25 @@ class Opinion extends Model
     use HasFactory;
 
     /**
+     * Add a new comment from a user to this opinion.
+     *
+     * @param User  $user
+     * @param array $attributes
+     */
+    final public function addComment(
+        User $user,
+        #[ArrayShape([
+            'comment' => 'string',
+            'points'  => 'string',
+        ])] array $attributes
+    ): void {
+        $this->comments()->attach($user->id, [
+            'comment' => $attributes['comment'],
+            'points'  => $attributes['points'],
+        ]);
+    }
+
+    /**
      * Retrieve the user that created this opinion.
      *
      * @return BelongsTo
@@ -67,24 +86,5 @@ class Opinion extends Model
     final public function references(): BelongsToMany
     {
         return $this->belongsToMany(Reference::class, 'opinion_reference');
-    }
-
-    /**
-     * Add a new comment from a user to this opinion.
-     *
-     * @param User  $user
-     * @param array $values
-     */
-    final public function addComment(
-        User $user,
-        #[ArrayShape([
-            'comment' => 'string',
-            'points'  => 'string',
-        ])] array $values
-    ): void {
-        $this->comments()->attach($user->id, [
-            'comment' => $values['comment'],
-            'points'  => $values['points'],
-        ]);
     }
 }
