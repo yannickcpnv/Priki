@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use DB;
-use Log;
 use Auth;
 use App\Models\Opinion;
 use Illuminate\Http\Request;
@@ -28,14 +27,22 @@ class OpinionController extends Controller
             return redirect()->route('practice', ['practice' => $request->input('practice_id')])
                 ->with('success', __('business.opinion.added'));
         } catch (QueryException $e) {
-            Log::Error($e->getMessage());
-            $message = null;
-            if ($e->errorInfo[1] === 1062) {
-                $message = __('business.opinion.error.unique user in practice');
-            }
-
-            return $this->redirectWithError($request, $message);
+            return $e->errorInfo[1] === 1062 ? $this->redirectWitWarning(
+                $request->input('practice_id'),
+                __('business.opinion.error.unique user in practice')
+            ) : throw $e;
         }
+    }
+
+    public function destroy(Request $request, Opinion $opinion): RedirectResponse
+    {
+        return $opinion->delete()
+            ? redirect()->route('practice', ['practice' => $request->input('practice_id')])
+                ->with('success', __('business.opinion.deleted'))
+            : $this->redirectWitWarning(
+                $request->input('practice_id'),
+                __('business.opinion.error.unique user in practice')
+            );
     }
 
     public function storeComment(Request $request): RedirectResponse
@@ -48,20 +55,16 @@ class OpinionController extends Controller
                 ->route('practice', ['practice' => $request->input('practice_id')])
                 ->with('success', __('business.comment.added'));
         } catch (QueryException $e) {
-            Log::Error($e->getMessage());
-            $message = null;
-            if ($e->errorInfo[1] === 1406) {
-                $message = __('business.error.data too long');
-            }
-
-            return $this->redirectWithError($request, $message);
+            return $e->errorInfo[1] === 1406 ? $this->redirectWitWarning(
+                $request->input('practice_id'),
+                __('business.error.data too long')
+            ) : throw $e;
         }
     }
 
-    private function redirectWithError(Request $request, string $message = null): RedirectResponse
+    private function redirectWitWarning(int $practiceId, string $message): RedirectResponse
     {
-        return redirect()
-            ->route('practice', ['practice' => $request->input('practice_id')])
-            ->with(isset($message) ? 'warning' : 'error', $message);
+        $params = ['practice' => $practiceId];
+        return redirect()->route('practice', $params)->with('warning', $message);
     }
 }

@@ -2,6 +2,6 @@
 
 <article class="message is-{{ $type }} box-shadow">
     <div class="message-body">
-        {{ $message }}
+        {!! $message !!}
     </div>
 </article>

@@ -18,6 +18,16 @@
                             <p class="title is-4"><a href="#">{{ $opinion->user->name }}</a></p>
                             <p class="subtitle is-6">{{ '@'.$opinion->user->email }}</p>
                         </div>
+                        @if (Auth::check() && $opinion->isWrittenBy(Auth::user()))
+                            <form action="{{ route('opinions.destroy', $opinion->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name="practice_id" value="{{ $practice->id }}">
+                                <button class="delete is-medium has-background-danger anim-for-click hover:scale-125"
+                                        type="submit"
+                                ></button>
+                            </form>
+                        @endif
                     </div>
 
                     <p>{{ $opinion->description }}</p>
@@ -46,21 +56,22 @@
                         </em>
                     </div>
 
-                    @if ($opinion->comments()->count())
-                        <p class="is-clickable"
-                           @click="selected = selected !== key ? key : null"
-                        >
+                    <p class="is-clickable"
+                       @click="selected = selected !== key ? key : null"
+                    >
+                        @if ($opinion->comments()->count())
+
                             {{ $opinion->comments()->count() }} <em class="far fa-comments"></em> -
                             <span class="has-text-success">
-                                {{ $opinion->upVotes() }} <em class="has-text-success far fa-thumbs-up"></em>
+                                {{ $opinion->up_votes }} <em class="has-text-success far fa-thumbs-up"></em>
                             </span>
                             <span class="has-text-danger">
-                                {{ $opinion->downVotes() }} <em class="far fa-thumbs-down"></em>
+                                {{ $opinion->down_votes }} <em class="far fa-thumbs-down"></em>
                             </span>
-                        </p>
-                    @else
-                        <p>0 <em class="far fa-comments"></em></p>
-                    @endif
+                        @else
+                            0 <em class="far fa-comments"></em>
+                        @endif
+                    </p>
 
                     <div
                         class="relative overflow-hidden transition-all max-h-0 duration-700"
@@ -81,7 +92,7 @@
                                 />
                             @else
                                 <x-message
-                                    :message="'Vous devez être connecté pour poster un commentaire.'"
+                                    :message="__('Login needed', ['action' => 'pouvoir commenter'])"
                                     :type="'info'"
                                 />
                             @endauth
@@ -102,9 +113,8 @@
             <x-forms.opinion-form :practiceId="$practice->id"/>
         @endif
     @else
-        <x-message :message="'Vous devez être connecté pour poster une opinion.'" :type="'info'"/>
-        <a href="{{ route('login') }}" class="button is-primary">
-            <strong>{{ __('Log in') }}</strong>
-        </a>
+        <x-message :message="__('Login needed', ['action' => 'donner votre opinion'])"
+                   :type="'info'"
+        />
     @endauth
 </section>

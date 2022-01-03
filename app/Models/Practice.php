@@ -18,7 +18,6 @@ class Practice extends Model
 
     use HasFactory;
 
-
     //region Methods
 
     /**
@@ -82,7 +81,6 @@ class Practice extends Model
     }
 
     //endregion
-
 
     //region Accessors
 

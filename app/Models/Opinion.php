@@ -17,6 +17,8 @@ class Opinion extends Model
 
     use HasFactory;
 
+    //region Methods
+
     /**
      * Add a new comment from a user to this opinion.
      *
@@ -35,6 +37,34 @@ class Opinion extends Model
             'points'  => $attributes['points'],
         ]);
     }
+
+    /**
+     * Check if this opinion is written by the user.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool
+     */
+    final public function isWrittenBy(User $user): bool
+    {
+        return $this->user_id === $user->id;
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (Opinion $opinion) {
+            $opinion->references()->detach();
+        });
+    }
+
+    //endregion
+
+    //region Accessors
 
     /**
      * Retrieve the user that created this opinion.
@@ -59,11 +89,21 @@ class Opinion extends Model
     }
 
     /**
+     * Retrieve all reference linked to this opinion.
+     *
+     * @return BelongsToMany
+     */
+    final public function references(): BelongsToMany
+    {
+        return $this->belongsToMany(Reference::class, 'opinion_reference');
+    }
+
+    /**
      * Get the number of up votes for this opinion.
      *
      * @return int
      */
-    final public function upVotes(): int
+    final public function getUpVotesAttribute(): int
     {
         return $this->comments()->wherePivot('points', '>', 0)->count();
     }
@@ -73,18 +113,10 @@ class Opinion extends Model
      *
      * @return int
      */
-    final public function downVotes(): int
+    final public function getDownVotesAttribute(): int
     {
         return $this->comments()->wherePivot('points', '<', 0)->count();
     }
 
-    /**
-     * Retrieve all reference linked to this opinion.
-     *
-     * @return BelongsToMany
-     */
-    final public function references(): BelongsToMany
-    {
-        return $this->belongsToMany(Reference::class, 'opinion_reference');
-    }
+    //endregion
 }

@@ -1,10 +1,6 @@
 <x-layout>
     <x-slot name="titlePage">Liste des références</x-slot>
 
-    <div class="block">
-        <x-flash-message/>
-    </div>
-
     <a href="{{ route('references.create') }}" class="button is-primary">Ajouter une référence</a>
 
     <section class="content">
