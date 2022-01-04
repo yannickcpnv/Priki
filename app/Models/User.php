@@ -76,11 +76,11 @@ class User extends Authenticatable
     final protected static function booted(): void
     {
         static::creating(function (User $user) {
-            $user->role_id = $user->role_id ?? self::defaultRole()->id;
+            $user->role_id = $user->role_id ?? self::getDefaultRole()->id;
         });
     }
 
-    private static function defaultRole(): Role
+    private static function getDefaultRole(): Role
     {
         return Role::whereSlug(config('business.user.default_role'))->first();
     }

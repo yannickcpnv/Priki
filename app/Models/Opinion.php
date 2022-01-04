@@ -17,53 +17,6 @@ class Opinion extends Model
 
     use HasFactory;
 
-    //region Methods
-
-    /**
-     * Add a new comment from a user to this opinion.
-     *
-     * @param User  $user
-     * @param array $attributes
-     */
-    final public function addComment(
-        User $user,
-        #[ArrayShape([
-            'comment' => 'string',
-            'points'  => 'string',
-        ])] array $attributes
-    ): void {
-        $this->comments()->attach($user->id, [
-            'comment' => $attributes['comment'],
-            'points'  => $attributes['points'],
-        ]);
-    }
-
-    /**
-     * Check if this opinion is written by the user.
-     *
-     * @param \App\Models\User $user
-     *
-     * @return bool
-     */
-    final public function isWrittenBy(User $user): bool
-    {
-        return $this->user_id === $user->id;
-    }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted(): void
-    {
-        static::deleting(function (Opinion $opinion) {
-            $opinion->references()->detach();
-        });
-    }
-
-    //endregion
-
     //region Accessors
 
     /**
@@ -81,7 +34,7 @@ class Opinion extends Model
      *
      * @return BelongsToMany
      */
-    final public function comments(): BelongsToMany
+    final public function commentators(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_opinion')
             ->withPivot('comment', 'points')
@@ -103,9 +56,19 @@ class Opinion extends Model
      *
      * @return int
      */
+    final public function getAllPointsAttribute(): int
+    {
+        return $this->commentators()->sum('points');
+    }
+
+    /**
+     * Get the number of up votes for this opinion.
+     *
+     * @return int
+     */
     final public function getUpVotesAttribute(): int
     {
-        return $this->comments()->wherePivot('points', '>', 0)->count();
+        return $this->commentators()->wherePivot('points', '>', 0)->count();
     }
 
     /**
@@ -115,7 +78,76 @@ class Opinion extends Model
      */
     final public function getDownVotesAttribute(): int
     {
-        return $this->comments()->wherePivot('points', '<', 0)->count();
+        return $this->commentators()->wherePivot('points', '<', 0)->count();
+    }
+
+    //endregion
+
+    //region Methods
+
+    /**
+     * Add a new comment from a user to this opinion.
+     *
+     * @param User  $user
+     * @param array $attributes
+     */
+    final public function addComment(
+        User $user,
+        #[ArrayShape([
+            'comment' => 'string',
+            'points'  => 'string',
+        ])] array $attributes
+    ): void {
+        $this->commentators()->attach($user->id, [
+            'comment' => $attributes['comment'],
+            'points'  => $attributes['points'],
+        ]);
+    }
+
+    /**
+     * Check if this opinion is written by a user.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool
+     */
+    final public function isWrittenBy(User $user): bool
+    {
+        return $this->user_id === $user->id;
+    }
+
+    /**
+     * Increment the points of the user feedback.
+     * It can't exceed 1.
+     *
+     * @param \App\Models\User $user
+     */
+    public function increasePoints(User $user): void
+    {
+        $this->commentators()->where('user_id', $user->id)->increment('points');
+    }
+
+    /**
+     * Increment the points of the user feedback.
+     * It can't be below -1.
+     *
+     * @param \App\Models\User $user
+     */
+    public function decreasePoints(User $user): void
+    {
+        $this->commentators()->where('user_id', $user->id)->decrement('points');
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (Opinion $opinion) {
+            $opinion->references()->detach();
+        });
     }
 
     //endregion

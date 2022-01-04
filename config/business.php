@@ -34,4 +34,9 @@ return [
         'closed'    => 'CLO',
         'archived'  => 'ARC',
     ],
+
+    'feedback' => [
+        'maximum points per user' => 1,
+        'minimum points per user' => -1,
+    ],
 ];

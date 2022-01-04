@@ -31,7 +31,7 @@
         </div>
 
         <div class="p-4">
-            <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
+            <livewire:opinion-container-component :opinions="$practice->opinions" :practice="$practice"/>
         </div>
     </div>
 </article>

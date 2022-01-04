@@ -18,6 +18,30 @@ class Practice extends Model
 
     use HasFactory;
 
+    //region Accessors
+
+    final public function domain(): BelongsTo
+    {
+        return $this->belongsTo(Domain::class);
+    }
+
+    final public function publicationState(): BelongsTo
+    {
+        return $this->belongsTo(PublicationState::class);
+    }
+
+    final public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    final public function opinions(): HasMany
+    {
+        return $this->hasMany(Opinion::class);
+    }
+
+    //endregion
+
     //region Methods
 
     /**
@@ -78,30 +102,6 @@ class Practice extends Model
         return is_null($with)
             ? self::whereHas($relation, $callback)
             : self::with($with)->whereHas($relation, $callback);
-    }
-
-    //endregion
-
-    //region Accessors
-
-    final public function domain(): BelongsTo
-    {
-        return $this->belongsTo(Domain::class);
-    }
-
-    final public function publicationState(): BelongsTo
-    {
-        return $this->belongsTo(PublicationState::class);
-    }
-
-    final public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    final public function opinions(): HasMany
-    {
-        return $this->hasMany(Opinion::class);
     }
 
     //endregion

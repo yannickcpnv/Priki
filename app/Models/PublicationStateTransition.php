@@ -15,5 +15,4 @@ class PublicationStateTransition extends Model
     use HasFactory;
 
     public $timestamps = false;
-
 }
