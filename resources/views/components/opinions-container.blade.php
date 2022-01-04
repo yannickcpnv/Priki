@@ -1,4 +1,7 @@
 @props(['opinions', 'practice'])
+@push('custom-scripts')
+    <script src="{{ mix('js/confirm.js') }}"></script>
+@endpush
 
 <section class="box content" x-data="{selected: null}">
     <h2 class="subtitle is-3">Opinions</h2>
@@ -19,12 +22,15 @@
                             <p class="subtitle is-6">{{ '@'.$opinion->user->email }}</p>
                         </div>
                         @if (Auth::check() && $opinion->isWrittenBy(Auth::user()))
-                            <form action="{{ route('opinions.destroy', $opinion->id) }}" method="post">
+                            <form action="{{ route('opinions.destroy', $opinion->id) }}"
+                                  method="post"
+                            >
                                 @csrf
                                 @method('delete')
                                 <input type="hidden" name="practice_id" value="{{ $practice->id }}">
                                 <button class="delete is-medium has-background-danger anim-for-click hover:scale-125"
                                         type="submit"
+                                        @click="confirmWithPopup('Êtes-vous sûr de vouloir supprimer cette opinion ?', $event)"
                                 ></button>
                             </form>
                         @endif

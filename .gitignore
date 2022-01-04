@@ -16,3 +16,4 @@ yarn-error.log
 /public/css/app.css
 /public/js/app.js
 /public/fonts/vendor/
+/public/js/confirm.js
