@@ -13,7 +13,7 @@ Priki is a project for ES dev technician formation, in the context of the module
 | [MariaDB](https://mariadb.org/download/)      | 10.5.9-MariaDB    |
 | [Npm](https://nodejs.org/en/download/)        | 8.3.0             |
 
-You can use the MySQL version equivalent instead of MariaDb.
+_You can use the MySQL version equivalent instead of MariaDb._
 
 ## Dependencies
 
@@ -34,12 +34,24 @@ Other dependencies that was manually added can be found in files :
    file.
 5. `composer m:f-s`
 
+_This is a Laravel project, so you can still use all php artisan commands._
+
 You will now have all the dependencies installed, the public files compiled and a database with some data.
 
 ## Usage
 
+To run the server locally.
+
 ```shell
 composer serve
+```
+
+To compile files with webpack.
+
+```shell
+npm run dev
+or
+npm run watch
 ```
 
 ## Test
