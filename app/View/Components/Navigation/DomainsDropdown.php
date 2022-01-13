@@ -16,7 +16,7 @@ class DomainsDropdown extends Component
     public function render()
     {
         return view('components.navigation.domains-dropdown', [
-            'domains'            => Domain::allWithPracticePublishedCount(),
+            'domains'            => Domain::allPublishedWithCount(),
             'practicesPublished' => Practice::allPublished(),
             'requestPath'        => $this->requestPath,
         ]);

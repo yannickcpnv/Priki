@@ -8,6 +8,10 @@
                     </a>
 
                     <div id="roles-dropdown" class="navbar-dropdown is-right">
+                        <div class="navbar-item">
+                            {{ Auth::user()->role->name }}
+                        </div>
+                        <hr class="navbar-divider">
                         <a class="navbar-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
