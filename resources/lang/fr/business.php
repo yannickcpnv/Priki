@@ -18,6 +18,11 @@ return [
     'comment'   => [
         'added' => 'Le commentaire a été ajouté.',
     ],
+    'role'      => [
+        'error' => [
+            'access moderator' => 'Seuls les modérateurs ont accès à cette partie.',
+        ],
+    ],
     'error'     => [
         'database'      => 'Une erreur s\'est produite avec la base de données.',
         'data too long' => 'Les données dépassent le maximum autorisé.',
