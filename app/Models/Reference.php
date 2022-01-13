@@ -17,5 +17,11 @@ class Reference extends Model
     public    $timestamps = false;
     protected $fillable   = [
         'description',
+        'url',
     ];
+
+    final public function hasUrl(): bool
+    {
+        return !is_null($this->url);
+    }
 }

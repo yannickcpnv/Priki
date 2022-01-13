@@ -2,11 +2,13 @@
 
 namespace App\Exceptions;
 
+use Log;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -34,18 +36,9 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            $this->handleException($e);
+        $this->renderable(function (QueryException $e) {
+            Log::Error($e->getMessage());
+            return redirect(url()->previous())->with('error', __('business.error.database'));
         });
-    }
-
-    /**
-     * Handle exception.
-     *
-     * @param Throwable $e
-     */
-    public function handleException(Throwable $e): void
-    {
-        // Add your code here...
     }
 }

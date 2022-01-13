@@ -16,11 +16,20 @@
     @stack('custom-scripts')
 </head>
 <body>
-    <x-navbar/>
+    <x-navigation.navbar/>
+
     <main>
+
         <section class="section">
             <div class="container">
-                <h1 class="title">{{ $titlePage ?? '' }}</h1>
+                @isset ($titlePage)
+                    <h1 {{ $titlePage->attributes->merge(['class' => 'title is-2']) }}>
+                        {{ $titlePage }}
+                    </h1>
+                @endisset
+
+                <x-flash-message/>
+
                 {{ $slot }}
             </div>
         </section>

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Nette\NotImplementedException;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\QueryException;
 use Illuminate\Contracts\Foundation\Application;
 
 class ReferenceController extends Controller
@@ -19,26 +23,40 @@ class ReferenceController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('pages.references-list', ['references' => Reference::all()]);
+        return view('pages.reference.list', ['references' => Reference::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @return Factory|View|Application
      */
-    public function create(): void
+    public function create(): Factory|View|Application
     {
-        throw new NotImplementedException();
+        return view('pages.reference.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @return Redirector|Application|RedirectResponse
      */
-    public function store(Request $request): void
+    public function store(Request $request): Redirector|Application|RedirectResponse
     {
-        throw new NotImplementedException();
+        try {
+            Reference::create(
+                [
+                    'description' => $request->input('description'),
+                    'url'         => $request->input('url'),
+                ]
+            );
+            return redirect(route('references.index'))->with('success', __('business.reference.added'));
+        } catch (QueryException $e) {
+            Log::Error($e->getMessage());
+            return redirect(route('references.index'))->with('error', __('business.reference.error.unique url'));
+        }
     }
 
     /**

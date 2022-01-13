@@ -18,7 +18,7 @@ class PracticeContainerComponent extends Component
 
     final public function mount(): void
     {
-        $this->days = config('business.practice.last_updated_days');
+        $this->days = session('practice.last_updated_days') ?? config('business.practice.last_updated_days');
         $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
     }
 
@@ -37,6 +37,7 @@ class PracticeContainerComponent extends Component
      */
     final public function onDaysUpdate(): void
     {
+        session()->put('practice.last_updated_days', $this->days);
         $this->getLastUpdatesPublished();
     }
 
