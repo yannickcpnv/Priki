@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
+    public function isModerator(): bool
+    {
+        return $this->role->slug === config('business.role.moderator');
+    }
+
     /**
      * The "booted" method of the model.
      *
