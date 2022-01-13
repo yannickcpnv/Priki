@@ -1,4 +1,4 @@
-<div>
+<div class="block">
     @if ($message = Session::get('basic'))
         <x-notification :message="$message" :type="'basic'"/>
     @endif

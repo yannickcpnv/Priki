@@ -8,7 +8,11 @@
             @endif
             <div class="message-body has-text-justified break-all flex-grow flex flex-col">
                 <div class="flex-grow">{{ Str::words($this->practice->description, 50) }}</div>
-                <div class="has-text-right mt-4">
+                <div class="mt-4 grid auto-rows-auto justify-items-end items-end">
+                    <div class="tags has-addons mb-0">
+                        <span class="tag is-dark">Etat</span>
+                        <span class="tag is-info">{{ $this->practice->publicationState->name }}</span>
+                    </div>
                     <small>
                         <p>
                             <em>

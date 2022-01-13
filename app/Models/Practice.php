@@ -52,6 +52,11 @@ class Practice extends Model
         )->get();
     }
 
+    final public static function allOrderByDomainOrderByState(): Collection
+    {
+        return self::orderBy('domain_id')->orderBy('publication_state_id')->get();
+    }
+
     /**
      * Retrieve last updated practices by days.
      *

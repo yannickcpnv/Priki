@@ -16,7 +16,7 @@ Route::prefix('/domains')->group(function () {
 });
 
 Route::prefix('/practices')->group(function () {
-    Route::get('', [HomeController::class, 'index'])->name('practices');
+    Route::get('', [PracticeController::class, 'index'])->name('practices');
     Route::get('/{practice}', [PracticeController::class, 'consultPractice'])
         ->name('practice')
         ->middleware('practice.isPublished');
