@@ -14,6 +14,7 @@ class PracticeCardComponent extends Component
 
     public Practice $practice;
     public string   $classes;
+    public bool     $withState;
 
     /**
      * @throws RequiredPropertyException
@@ -21,10 +22,12 @@ class PracticeCardComponent extends Component
     final public function mount(Practice $practice): void
     {
         if (!$practice->exists) {
-            throw new RequiredPropertyException(Practice::class, 'practice', self::class);
+            throw new RequiredPropertyException(
+                Practice::class,
+                'practice',
+                self::class
+            );
         }
-
-        $this->practice = $practice;
     }
 
     final public function render(): Factory|View|Application
@@ -40,12 +43,5 @@ class PracticeCardComponent extends Component
     final public function isDomainSelected(): bool
     {
         return session()->exists('domain');
-    }
-
-    final public function tagStateClass(): string
-    {
-        return match ($this->practice->publicationState->slug) {
-            default => 'is-info',
-        };
     }
 }

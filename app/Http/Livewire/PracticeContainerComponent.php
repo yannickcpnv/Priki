@@ -22,11 +22,6 @@ class PracticeContainerComponent extends Component
         $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
     }
 
-    private function getLastUpdatesPublished(): void
-    {
-        $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
-    }
-
     final public function render(): Factory|View|Application
     {
         return view('livewire.practice-container-component');
@@ -41,9 +36,18 @@ class PracticeContainerComponent extends Component
         $this->getLastUpdatesPublished();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
+    final public function arePracticesAllInSameState(): bool
+    {
+        $state = $this->practices->first()->publication_state_id;
+
+        return $this->practices->every(fn($practice) => $practice->publication_state_id === $state);
+    }
+
+    private function getLastUpdatesPublished(): void
+    {
+        $this->practices = $this->originalPractices->intersect($this->getLastUpdated());
+    }
+
     private function getLastUpdated(): Collection
     {
         return Practice::lastUpdates($this->days);

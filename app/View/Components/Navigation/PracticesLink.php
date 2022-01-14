@@ -3,6 +3,7 @@
 namespace App\View\Components\Navigation;
 
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class PracticesLink extends Component
 {
@@ -11,10 +12,10 @@ class PracticesLink extends Component
 
     public function __construct() { $this->requestPath = request()?->path(); }
 
-    public function render()
+    final public function render(): View
     {
         return view('components.navigation.practices-link');
     }
 
-    public function isAPracticeRoute(): bool { return str_contains($this->requestPath, 'references'); }
+    final public function isAPracticeRoute(): bool { return $this->requestPath === 'practices'; }
 }

@@ -17,15 +17,13 @@ Route::prefix('/domains')->group(function () {
 
 Route::prefix('/practices')->group(function () {
     Route::get('', [PracticeController::class, 'index'])->name('practices');
-    Route::get('/{practice}', [PracticeController::class, 'consultPractice'])
-        ->name('practice')
-        ->middleware('practice.isPublished');
+    Route::get('/{practice}', [PracticeController::class, 'consultPractice'])->name('practice');
 });
 
 Route::prefix('/opinions')->group(function () {
     Route::post('', [OpinionController::class, 'store'])->name('opinions.store');
-    Route::delete('/{opinion}', [OpinionController::class, 'destroy'])->name('opinions.destroy');
     Route::post('/comment', [OpinionController::class, 'storeComment'])->name('opinions.comment.store');
+    Route::delete('/{opinion}', [OpinionController::class, 'destroy'])->name('opinions.destroy');
 });
 
 Route::resource('references', ReferenceController::class);

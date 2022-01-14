@@ -19,11 +19,10 @@
     <x-navigation.navbar/>
 
     <main>
-
         <section class="section">
             <div class="container">
                 @isset ($titlePage)
-                    <h1 {{ $titlePage->attributes->merge(['class' => 'title is-2']) }}>
+                    <h1 {{ $titlePage->attributes->merge(['class' => 'title is-1']) }}>
                         {{ $titlePage }}
                     </h1>
                 @endisset

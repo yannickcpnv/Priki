@@ -12,7 +12,7 @@ use Illuminate\Database\QueryException;
 class OpinionController extends Controller
 {
 
-    public function store(Request $request): RedirectResponse
+    final public function store(Request $request): RedirectResponse
     {
         try {
             DB::transaction(function () use ($request) {
@@ -25,7 +25,7 @@ class OpinionController extends Controller
             });
 
             return redirect()->route('practice', ['practice' => $request->input('practice_id')])
-                ->with('success', __('business.opinion.added'));
+                             ->with('success', __('business.opinion.added'));
         } catch (QueryException $e) {
             return $e->errorInfo[1] === 1062 ? $this->redirectWitWarning(
                 $request->input('practice_id'),
@@ -34,18 +34,7 @@ class OpinionController extends Controller
         }
     }
 
-    public function destroy(Request $request, Opinion $opinion): RedirectResponse
-    {
-        return $opinion->delete()
-            ? redirect()->route('practice', ['practice' => $request->input('practice_id')])
-                ->with('success', __('business.opinion.deleted'))
-            : $this->redirectWitWarning(
-                $request->input('practice_id'),
-                __('business.opinion.error.unique user in practice')
-            );
-    }
-
-    public function storeComment(Request $request): RedirectResponse
+    final public function storeComment(Request $request): RedirectResponse
     {
         try {
             $opinion = Opinion::find($request->input('opinion_id'));
@@ -62,9 +51,19 @@ class OpinionController extends Controller
         }
     }
 
+    final public function destroy(Request $request, Opinion $opinion): RedirectResponse
+    {
+        return $opinion->delete()
+            ? redirect()->route('practice', ['practice' => $request->input('practice_id')])
+                        ->with('success', __('business.opinion.deleted'))
+            : $this->redirectWitWarning(
+                $request->input('practice_id'),
+                __('business.opinion.error.unique user in practice')
+            );
+    }
+
     private function redirectWitWarning(int $practiceId, string $message): RedirectResponse
     {
-        $params = ['practice' => $practiceId];
-        return redirect()->route('practice', $params)->with('warning', $message);
+        return redirect()->route('practice', ['practice' => $practiceId])->with('warning', $message);
     }
 }

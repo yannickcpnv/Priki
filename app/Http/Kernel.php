@@ -13,7 +13,6 @@ use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Middleware\RedirectIfAuthenticated;
-use App\Http\Middleware\EnsurePracticeIsPublished;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
@@ -85,6 +84,5 @@ class Kernel extends HttpKernel
         'signed'               => ValidateSignature::class,
         'throttle'             => ThrottleRequests::class,
         'verified'             => EnsureEmailIsVerified::class,
-        'practice.isPublished' => EnsurePracticeIsPublished::class,
     ];
 }
