@@ -1,7 +1,7 @@
 <div
     class="{{ $this->classes ?? '' }} anim-for-click"
 >
-    <a class="no-focus message is-dark box-shadow flex" href="{{ route('practice', $practice->id) }}">
+    <a class="no-focus message is-dark box-shadow flex" href="{{ route('practices.view', $practice->id) }}">
         <article class="flex flex-col">
             @if (!$this->isDomainSelected())
                 <div class="message-header has-background-primary-dark">{{ $this->practice->domain->name }}</div>

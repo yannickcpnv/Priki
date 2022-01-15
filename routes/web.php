@@ -17,7 +17,8 @@ Route::prefix('/domains')->group(function () {
 
 Route::prefix('/practices')->group(function () {
     Route::get('', [PracticeController::class, 'index'])->name('practices');
-    Route::get('/{practice}', [PracticeController::class, 'consultPractice'])->name('practice');
+    Route::get('/{practice}', [PracticeController::class, 'view'])->name('practices.view');
+    Route::post('/{practice}/publish', [PracticeController::class, 'publish'])->name('practices.publish');
 });
 
 Route::prefix('/opinions')->group(function () {

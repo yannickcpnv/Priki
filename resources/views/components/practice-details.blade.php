@@ -36,16 +36,17 @@
 
                 <div class="columns is-multiline">
                     <div class="column is-2">
-                        @can('publish', $practice)
-                            <form method="POST" action="" x-data="show=true">
-                                @csrf
-                                <div class="control has-text-right">
-                                    <button class="button is-success is-light w-full" type="submit">
-                                        {{ __('business.actions.publish') }}
-                                    </button>
-                                </div>
-                            </form>
-                        @endcan
+                        <form method="POST"
+                              action="{{ route('practices.publish', $practice->id) }}"
+                              x-data="show=true"
+                        >
+                            @csrf
+                            <div class="control has-text-right">
+                                <button class="button is-success is-light w-full" type="submit">
+                                    {{ __('business.actions.publish') }}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'practice'  => [
+        'published' => 'La practice a été publiée.',
+    ],
     'opinion'   => [
         'added'   => 'L\'opinion a été ajouté.',
         'deleted' => 'L\'opinion a été supprimée.',

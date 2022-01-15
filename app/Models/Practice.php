@@ -101,6 +101,14 @@ class Practice extends Model
         return $this->publicationState->slug === config('business.domain.proposed');
     }
 
+    final public function publish(): void
+    {
+        $publicationState = PublicationState::whereSlug(config('business.domain.published'))->first();
+        $this->publicationState()->associate($publicationState);
+
+        $this->save();
+    }
+
     private static function allPublishedQuery(string $with = null): Builder
     {
         $relation = 'publicationState';
