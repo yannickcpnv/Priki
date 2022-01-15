@@ -26,4 +26,7 @@ return [
         'database'      => 'Une erreur s\'est produite avec la base de données.',
         'data too long' => 'Les données dépassent le maximum autorisé.',
     ],
+    'actions'   => [
+        'publish' => 'Publier',
+    ],
 ];

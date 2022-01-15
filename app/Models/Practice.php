@@ -76,6 +76,11 @@ class Practice extends Model
         return self::where('updated_at', '>=', $dateSubDay)->get();
     }
 
+    final public function isProposed(): bool
+    {
+        return $this->publicationState->slug === config('business.domain.proposed');
+    }
+
     final public function isPublished(): bool
     {
         return $this->publicationState->slug === config('business.domain.published');
