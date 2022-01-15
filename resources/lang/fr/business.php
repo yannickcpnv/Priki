@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'practice'  => [
+        'published' => 'La practice a été publiée.',
+    ],
     'opinion'   => [
         'added'   => 'L\'opinion a été ajouté.',
         'deleted' => 'L\'opinion a été supprimée.',
@@ -25,5 +28,8 @@ return [
         ],
         'database'      => 'Une erreur s\'est produite avec la base de données.',
         'data too long' => 'Les données dépassent le maximum autorisé.',
+    ],
+    'actions'   => [
+        'publish' => 'Publier',
     ],
 ];

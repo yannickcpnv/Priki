@@ -57,6 +57,44 @@ class User extends Authenticatable
 
     //region Methods
 
+    //region Authorization
+
+    /**
+     * Check if the user role is moderator.
+     *
+     * @return bool
+     */
+    final public function isModerator(): bool
+    {
+        return $this->role->slug === config('business.role.moderator');
+    }
+
+    /**
+     * Check if the user can consult a practice.
+     *
+     * @param Practice $practice
+     *
+     * @return bool
+     */
+    public function canConsult(Practice $practice): bool
+    {
+        return $this->isModerator() || $practice->isPublished();
+    }
+
+    /**
+     * Check if the user can publish a practice.
+     *
+     * @param Practice $practice
+     *
+     * @return bool
+     */
+    final public function canPublish(Practice $practice): bool
+    {
+        return $this->isModerator() && $this->hasGivenOpinionTo($practice) && $practice->isProposed();
+    }
+
+    //endregion
+
     /**
      * Check if the user has already given his opinion to a practice.
      *
@@ -67,11 +105,6 @@ class User extends Authenticatable
     final public function hasGivenOpinionTo(Practice $practice): bool
     {
         return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
-    }
-
-    final public function isModerator(): bool
-    {
-        return $this->role->slug === config('business.role.moderator');
     }
 
     /**
@@ -99,6 +132,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-
     //endregion
 }
