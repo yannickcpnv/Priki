@@ -36,10 +36,7 @@
 
                 <div class="columns is-multiline">
                     <div class="column is-2">
-                        @if ($practice->isProposed()
-                           && Auth::user()->can('access-moderator')
-                           && Auth::user()->hasGivenOpinionTo($practice)
-                   )
+                        @can('publish', $practice)
                             <form method="POST" action="" x-data="show=true">
                                 @csrf
                                 <div class="control has-text-right">
@@ -48,9 +45,8 @@
                                     </button>
                                 </div>
                             </form>
-                        @endif
+                        @endcan
                     </div>
-
                 </div>
             </div>
         </div>

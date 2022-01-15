@@ -52,7 +52,12 @@ class Practice extends Model
         )->get();
     }
 
-    final public static function allGroupByDomainOrderByState(): Collection|array
+    /**
+     * Retrieve all practice grouped by domain and order by publication state.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    final public static function allGroupByDomainOrderByState(): Collection
     {
         return self::with('domain', 'publicationState')
                    ->get()
@@ -76,14 +81,24 @@ class Practice extends Model
         return self::where('updated_at', '>=', $dateSubDay)->get();
     }
 
-    final public function isProposed(): bool
-    {
-        return $this->publicationState->slug === config('business.domain.proposed');
-    }
-
+    /**
+     * Check if the practice is in published publication state.
+     *
+     * @return bool
+     */
     final public function isPublished(): bool
     {
         return $this->publicationState->slug === config('business.domain.published');
+    }
+
+    /**
+     * Check if the practice is in proposed publication state.
+     *
+     * @return bool
+     */
+    final public function isProposed(): bool
+    {
+        return $this->publicationState->slug === config('business.domain.proposed');
     }
 
     private static function allPublishedQuery(string $with = null): Builder
