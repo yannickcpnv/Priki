@@ -5,7 +5,7 @@
 
 <section class="box content" x-data="{selected: null}">
     <h2 class="subtitle is-3">Opinions</h2>
-    @if ($practice->opinions->count())
+    @if ($practice->opinions->isNotEmpty())
         @foreach ($opinions as $opinionIndex => $opinion)
             <div x-data="{ key: {{ $opinionIndex }} }"
                  class="block card anim-for-click"
@@ -37,7 +37,7 @@
                     </div>
 
                     <p>{{ $opinion->description }}</p>
-                    @if ($opinion->references->count())
+                    @if ($opinion->references->isNotEmpty())
                         <dl>
                             <dt class="subtitle is-5">Références</dt>
                             @foreach($opinion->references as $reference)
@@ -65,9 +65,8 @@
                     <p class="is-clickable"
                        @click="selected = selected !== key ? key : null"
                     >
-                        @if ($opinion->comments()->count())
-
-                            {{ $opinion->comments()->count() }} <em class="far fa-comments"></em> -
+                        @if ($opinion->comments->isNotEmpty())
+                            {{ $opinion->comments->count() }} <em class="far fa-comments"></em> -
                             <span class="has-text-success">
                                 {{ $opinion->up_votes }} <em class="has-text-success far fa-thumbs-up"></em>
                             </span>
@@ -84,7 +83,7 @@
                         x-ref="container"
                         x-bind:style="key === selected ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''"
                     >
-                        @if ($opinion->comments()->count() > 0)
+                        @if ($opinion->comments->count())
                             <x-comments-container :comments="$opinion->comments"/>
                         @endif
 

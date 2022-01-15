@@ -17,6 +17,8 @@ class Opinion extends Model
 
     use HasFactory;
 
+    protected $appends = ['upVotes', 'downVotes'];
+
     //region Methods
 
     /**

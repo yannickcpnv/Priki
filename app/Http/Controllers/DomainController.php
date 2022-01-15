@@ -19,10 +19,7 @@ class DomainController extends Controller
      */
     final public function index(Request $request): View
     {
-        $sessionName = 'domain';
-        if ($request->session()->exists($sessionName)) {
-            $request->session()->remove($sessionName);
-        }
+        $request->session()->remove('domain');
 
         return view('pages.home', ['practices' => Practice::allPublished()]);
     }
@@ -31,17 +28,14 @@ class DomainController extends Controller
      * Go to a domain page by slug.
      *
      * @param \Illuminate\Http\Request $request The HTTP request.
-     * @param string                   $slug The slug name
+     * @param string                   $slug    The slug name
      *
      * @return View
      */
     final public function bySlug(Request $request, string $slug): View
     {
-        $sessionName = 'domain';
         $domain = Domain::whereSlug($slug)->first();
-        if (!$request->session()->exists($sessionName)) {
-            $request->session()->put($sessionName, $domain);
-        }
+        $request->session()->put('domain', $domain);
         $practices = Practice::allPublishedBy('domain', $slug, true);
 
         return view('pages.domain', compact('practices', 'domain'));

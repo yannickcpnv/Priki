@@ -1,14 +1,20 @@
 <div
     class="{{ $this->classes ?? '' }} anim-for-click"
 >
-    <a class="no-focus message box-shadow flex" href="{{ route('practice', $practice->id) }}">
+    <a class="no-focus message is-dark box-shadow flex" href="{{ route('practice', $practice->id) }}">
         <article class="flex flex-col">
             @if (!$this->isDomainSelected())
-                <div class="message-header has-background-primary">{{ $this->practice->domain->name }}</div>
+                <div class="message-header has-background-primary-dark">{{ $this->practice->domain->name }}</div>
             @endif
-            <div class="message-body has-text-justified break-all flex-grow flex flex-col">
+            <div class="message-body has-text-justified flex-grow flex flex-col">
                 <div class="flex-grow">{{ Str::words($this->practice->description, 50) }}</div>
-                <div class="has-text-right mt-4">
+                <div class="mt-4 grid auto-rows-auto justify-items-end items-end">
+                    @if ($this->withState)
+                        <div class="tags has-addons mb-0">
+                            <span class="tag is-dark">Etat</span>
+                            <span class="tag is-info">{{ $this->practice->publicationState->name }}</span>
+                        </div>
+                    @endif
                     <small>
                         <p>
                             <em>

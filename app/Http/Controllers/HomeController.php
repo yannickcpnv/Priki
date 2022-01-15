@@ -18,10 +18,7 @@ class HomeController extends Controller
      */
     final public function index(Request $request): View
     {
-        $sessionName = 'domain';
-        if ($request->session()->exists($sessionName)) {
-            $request->session()->remove($sessionName);
-        }
+        $request->session()->remove('domain');
 
         return view('pages.home', ['practices' => Practice::allPublished('domain')]);
     }

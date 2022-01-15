@@ -52,6 +52,16 @@ class Practice extends Model
         )->get();
     }
 
+    final public static function allGroupByDomainOrderByState(): Collection|array
+    {
+        return self::with('domain', 'publicationState')
+                   ->get()
+                   ->sortBy(function ($practice) {
+                       return [$practice->domain->name, $practice->publication_state_id];
+                   })
+                   ->groupBy(fn($practice) => $practice->domain->name);
+    }
+
     /**
      * Retrieve last updated practices by days.
      *
@@ -62,6 +72,7 @@ class Practice extends Model
     final public static function lastUpdates(int $days): Collection
     {
         $dateSubDay = Carbon::now()->subDays($days);
+
         return self::where('updated_at', '>=', $dateSubDay)->get();
     }
 

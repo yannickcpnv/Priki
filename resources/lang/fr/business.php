@@ -19,6 +19,10 @@ return [
         'added' => 'Le commentaire a été ajouté.',
     ],
     'error'     => [
+        'access'        => [
+            'moderator'        => 'Seuls les modérateurs ont accès à cette partie.',
+            'consult practice' => 'Le détail d\'une practice ne peut être consulté que si elle est publiée ou que vous ête un modérateur.',
+        ],
         'database'      => 'Une erreur s\'est produite avec la base de données.',
         'data too long' => 'Les données dépassent le maximum autorisé.',
     ],

@@ -13,11 +13,12 @@
         <div>&nbsp;jour{{ $this->days > 1 ? 's' : '' }}</div>
     </label>
     @if($this->practices->isNotEmpty())
-        <div class="columns is-multiline is-centered">
+        <div class="columns is-multiline">
             @foreach ($this->practices as $practice)
                 <livewire:practice-card-component
                     :practice="$practice"
                     :classes="'column is-one-third is-flex'"
+                    :withState="false"
                     :key="$practice->id"
                 />
             @endforeach

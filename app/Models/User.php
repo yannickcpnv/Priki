@@ -5,6 +5,7 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -68,6 +69,11 @@ class User extends Authenticatable
         return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
+    final public function isModerator(): bool
+    {
+        return $this->role->slug === config('business.role.moderator');
+    }
+
     /**
      * The "booted" method of the model.
      *
@@ -83,6 +89,15 @@ class User extends Authenticatable
     private static function defaultRole(): Role
     {
         return Role::whereSlug(config('business.user.default_role'))->first();
+    }
+
+    //endregion
+
+    //region Accessors
+
+    final public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 
     //endregion
