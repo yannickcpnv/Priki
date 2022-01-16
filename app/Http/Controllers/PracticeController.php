@@ -22,7 +22,7 @@ class PracticeController extends Controller
 
     final public function view(Practice $practice): View|RedirectResponse
     {
-        if (Gate::denies('consult-practice', $practice)) {
+        if (Gate::denies('consult', $practice)) {
             return redirect()->route('home')->with('warning', __('business.error.access.consult practice'));
         }
 

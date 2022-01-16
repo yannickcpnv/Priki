@@ -66,7 +66,7 @@ class User extends Authenticatable
      */
     final public function isModerator(): bool
     {
-        return $this->role->slug === config('business.role.moderator');
+        return $this->role?->slug === config('business.role.moderator');
     }
 
     /**
@@ -78,7 +78,7 @@ class User extends Authenticatable
      */
     public function canConsult(Practice $practice): bool
     {
-        return $this->isModerator() || $practice->isPublished();
+        return $practice->isPublished() || $this->isModerator();
     }
 
     /**
@@ -104,7 +104,7 @@ class User extends Authenticatable
      */
     final public function hasGivenOpinionTo(Practice $practice): bool
     {
-        return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
+        return $practice->opinions?->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
     /**
