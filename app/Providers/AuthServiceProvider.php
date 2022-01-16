@@ -30,6 +30,5 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('access-moderator', fn(User $user) => $user->isModerator());
-        Gate::define('consult', fn(?User $user, Practice $practice) => ($user ?? new User())->canConsult($practice));
     }
 }
