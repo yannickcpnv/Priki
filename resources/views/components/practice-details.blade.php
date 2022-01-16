@@ -35,19 +35,21 @@
                 <h2 class="subtitle is-3">Actions</h2>
 
                 <div class="columns is-multiline">
-                    <div class="column is-2">
-                        <form method="POST"
-                              action="{{ route('practices.publish', $practice->id) }}"
-                              x-data="show=true"
-                        >
-                            @csrf
-                            <div class="control has-text-right">
-                                <button class="button is-success is-light w-full" type="submit">
-                                    {{ __('business.actions.publish') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    @can('publish', $practice)
+                        <div class="column is-2">
+                            <form method="POST"
+                                  action="{{ route('practices.publish', $practice->id) }}"
+                                  x-data="show=true"
+                            >
+                                @csrf
+                                <div class="control has-text-right">
+                                    <button class="button is-success is-light w-full" type="submit">
+                                        {{ __('business.actions.publish') }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
