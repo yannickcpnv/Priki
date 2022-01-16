@@ -11,6 +11,11 @@ class PracticePolicy
 
     use HandlesAuthorization;
 
+    public function view(?User $user, Practice $practice): bool
+    {
+        return ($user ?? new User())->canConsult($practice);
+    }
+
     /**
      * Determine whether the user can publish the practice.
      *
