@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * @mixin Builder
+ * @mixin IdeHelperPractice
  */
 class Practice extends Model
 {

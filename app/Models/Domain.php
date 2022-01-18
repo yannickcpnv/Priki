@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperDomain
  */
 class Domain extends Model
 {

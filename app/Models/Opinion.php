@@ -4,13 +4,12 @@ namespace App\Models;
 
 use JetBrains\PhpStorm\ArrayShape;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin Builder
+ * @mixin IdeHelperOpinion
  */
 class Opinion extends Model
 {
@@ -86,8 +85,8 @@ class Opinion extends Model
     final public function comments(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_opinion')
-            ->withPivot('comment', 'points')
-            ->as('feedback');
+                    ->withPivot('comment', 'points')
+                    ->as('feedback');
     }
 
     /**
