@@ -63,14 +63,14 @@
             "npm install",
             "npm run dev",
             "@composer generate:key",
-            "@composer "
+            "@composer ide-helper"
         ],
         "serve": "@php artisan serve",
         "copy:env": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
         "generate:key": "@php artisan key:generate --ansi",
         "m:f-s": "@php artisan migrate:fresh --seed",
         "ide-helper": [
-            "@php artisan ide-helper",
+            "@php artisan ide-helper:generate",
             "@php artisan ide-helper:models -M"
         ]
     },
