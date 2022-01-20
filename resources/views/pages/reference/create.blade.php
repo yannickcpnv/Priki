@@ -11,12 +11,12 @@
                     <div class="field">
                         <label class="label" for="description">Description</label>
                         <div class="control has-icons-left has-icons-right">
-                            <input class="input"
-                                   id="description"
+                            <input id="description"
+                                   class="input"
                                    name="description"
                                    type="text"
                                    required
-                                   pattern="\s*(\S\s*){10,}"
+                                   value="{{ old('description') }}"
                                    title="La description doit faire au moins 10 caractères (sans compter les espaces)."
                             >
                             <span class="icon is-small is-left">
@@ -26,16 +26,27 @@
                                 <em class="fas fa-quote-right"></em>
                             </span>
                         </div>
+                        @error('description')
+                        <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="field">
                         <label class="label" for="url">Url</label>
                         <div class="control has-icons-left">
-                            <input class="input" id="url" name="url" type="url">
+                            <input id="url"
+                                   class="input"
+                                   name="url"
+                                   type="url"
+                                   value="{{ old('url') }}"
+                            >
                             <span class="icon is-small is-left">
                                 <em class="fas fa-link"></em>
                             </span>
                         </div>
+                        @error('url')
+                        <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="field">

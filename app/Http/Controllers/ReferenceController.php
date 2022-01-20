@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Log;
+use Validator;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Nette\NotImplementedException;
@@ -43,12 +44,20 @@ class ReferenceController extends Controller
     final public function store(Request $request): RedirectResponse
     {
         try {
-            Reference::create(
-                [
-                    'description' => $request->input('description'),
-                    'url'         => $request->input('url'),
-                ]
-            );
+            Validator::make($request->all(), [
+
+            ]);
+            $validated = $request->validate([
+                'description' => 'required|max:100|regex:/\s*(\S\s*){10,}/',
+                'url'         => 'url|unique:references',
+            ], [
+                'description.regex' => __('business.reference.error.description format'),
+            ]);
+
+            Reference::create([
+                'description' => $validated['description'],
+                'url'         => $validated['url'],
+            ]);
 
             return redirect(route('references.index'))->with('success', __('business.reference.added'));
         } catch (QueryException $e) {
