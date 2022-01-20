@@ -39,7 +39,7 @@
                         <div class="column is-2">
                             <form method="POST"
                                   action="{{ route('practices.publish', $practice->id) }}"
-                                  x-data="show=true"
+                                  x-data="{show: true}"
                             >
                                 @csrf
                                 <div class="control has-text-right">
