@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperPublicationStateTransition
  */
 class PublicationStateTransition extends Model
 {

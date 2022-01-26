@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
+ * App\Models\Domain
+ *
  * @mixin Builder
+ * @mixin IdeHelperDomain
  */
 class Domain extends Model
 {

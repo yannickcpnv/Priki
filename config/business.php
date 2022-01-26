@@ -24,7 +24,7 @@ return [
         | The default role a user will have at the creation.
         |
         */
-        'default_role' => config('business.role.Membre'),
+        'default_role' => 'MBR',
     ],
 
     'domain' => [

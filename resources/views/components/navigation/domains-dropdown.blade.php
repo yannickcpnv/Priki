@@ -5,14 +5,14 @@
 
     <div id="domains-dropdown" class="navbar-dropdown">
         <a @class(['navbar-item', 'is-danger', 'is-active' => $isDomainIndexRoute()])
-           href="{{ route('domains') }}"
+           href="{{ route('practices.list-published') }}"
         >
             Tous ({{ $practicesPublished->count() }})
         </a>
         <hr class="navbar-divider">
         @foreach ($domains as $domain)
             <a @class(['navbar-item', 'is-active' => $isADomainRoute($domain)])
-               href="{{ route('domains.slug', ['slug' => $domain->slug]) }}"
+               href="{{ route('practices.list-by-domain', ['slug' => $domain->slug]) }}"
             >
                 {{ $domain->name }}
                 ({{ $domain->practices_count }})

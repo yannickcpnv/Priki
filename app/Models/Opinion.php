@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperOpinion
  */
 class Opinion extends Model
 {
@@ -86,8 +87,8 @@ class Opinion extends Model
     final public function comments(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_opinion')
-            ->withPivot('comment', 'points')
-            ->as('feedback');
+                    ->withPivot('comment', 'points')
+                    ->as('feedback');
     }
 
     /**

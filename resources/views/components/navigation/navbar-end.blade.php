@@ -4,7 +4,7 @@
             <div class="buttons">
                 <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
                     <a class="navbar-link is-arrowless has-text-weight-bold is-uppercase has-text-primary">
-                        {{ Auth::user()->name }} &hyphen; {{ Auth::user()->fullname }}
+                        {{ Auth::user()->fullname }} &hyphen; {{ Auth::user()->name }}
                     </a>
 
                     <div id="roles-dropdown" class="navbar-dropdown is-right">

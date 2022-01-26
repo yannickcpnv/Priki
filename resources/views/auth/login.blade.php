@@ -53,16 +53,12 @@
                 @endif
             </div>
 
-            <div class="flex items-center is-justify-content-space-between mt-4">
-                <a href="{{ route('register') }}">
-                    <x-breeze.button type="button"
-                                     class="bg-transparent text-gray-800 hover:text-white border border-gray-800 hover:border-transparent">
-                        {{ __('Register') }}
-                    </x-breeze.button>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                    {{ __('Create Account') }}
                 </a>
 
-
-                <x-breeze.button>
+                <x-breeze.button class="ml-4">
                     {{ __('Log in') }}
                 </x-breeze.button>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Gate;
+use App\Models\Domain;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -17,10 +18,25 @@ class PracticeController extends Controller
             return redirect()->route('home')->with('warning', __('business.error.access.moderator'));
         }
 
-        return view('pages.list-practices', ['practicesGroups' => Practice::allGroupByDomainOrderByState()]);
+        return view('pages..practices.list', ['practicesGroups' => Practice::allGroupByDomainOrderByState()]);
     }
 
-    final public function view(Practice $practice): View|RedirectResponse
+    final public function listPublished(): View
+    {
+        $practices = Practice::allPublished('domain')->sortByDesc(fn($practice) => $practice->updated_at);
+
+        return view('pages.home', compact('practices'));
+    }
+
+    final public function byDomain(string $slug): View
+    {
+        $domain = Domain::whereSlug($slug)->first();
+        $practices = Practice::allPublishedBy('domain', $slug, true);
+
+        return view('pages.practices.by-domain', compact('practices', 'domain'));
+    }
+
+    final public function show(Practice $practice): View|RedirectResponse
     {
         if (Gate::denies('view', $practice)) {
             return redirect()->route('home')->with('warning', __('business.error.access.consult practice'));
@@ -28,7 +44,7 @@ class PracticeController extends Controller
 
         $practice->load('opinions.references', 'opinions.comments', 'opinions.user');
 
-        return view('pages.consult-practice', compact('practice'));
+        return view('pages.practices.show', compact('practice'));
     }
 
     final public function publish(Request $request, Practice $practice): RedirectResponse

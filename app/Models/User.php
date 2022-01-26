@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperUser
  */
 class User extends Authenticatable
 {
@@ -67,30 +68,6 @@ class User extends Authenticatable
     final public function isModerator(): bool
     {
         return $this->role?->slug === config('business.role.moderator');
-    }
-
-    /**
-     * Check if the user can consult a practice.
-     *
-     * @param Practice $practice
-     *
-     * @return bool
-     */
-    public function canConsult(Practice $practice): bool
-    {
-        return $practice->isPublished() || $this->isModerator();
-    }
-
-    /**
-     * Check if the user can publish a practice.
-     *
-     * @param Practice $practice
-     *
-     * @return bool
-     */
-    final public function canPublish(Practice $practice): bool
-    {
-        return $this->isModerator() && $this->hasGivenOpinionTo($practice) && $practice->isProposed();
     }
 
     //endregion

@@ -43,12 +43,17 @@ class ReferenceController extends Controller
     final public function store(Request $request): RedirectResponse
     {
         try {
-            Reference::create(
-                [
-                    'description' => $request->input('description'),
-                    'url'         => $request->input('url'),
-                ]
-            );
+            $validated = $request->validate([
+                'description' => 'required|max:100|regex:/\s*(\S\s*){10,}/',
+                'url'         => 'nullable|url|unique:references',
+            ], [
+                'description.regex' => __('business.reference.error.description format'),
+            ]);
+
+            Reference::create([
+                'description' => $validated['description'],
+                'url'         => $validated['url'],
+            ]);
 
             return redirect(route('references.index'))->with('success', __('business.reference.added'));
         } catch (QueryException $e) {

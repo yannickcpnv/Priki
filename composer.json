@@ -19,6 +19,7 @@
         "livewire/livewire": "^2.8"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.11",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "itsgoingd/clockwork": "^5.1",
@@ -61,12 +62,17 @@
             "@composer copy:env",
             "npm install",
             "npm run dev",
-            "@composer generate:key"
+            "@composer generate:key",
+            "@composer ide-helper"
         ],
         "serve": "@php artisan serve",
         "copy:env": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
         "generate:key": "@php artisan key:generate --ansi",
-        "m:f-s": "@php artisan migrate:fresh --seed"
+        "m:f-s": "@php artisan migrate:fresh --seed",
+        "ide-helper": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models -M"
+        ]
     },
     "extra": {
         "laravel": {

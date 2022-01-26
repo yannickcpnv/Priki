@@ -15,6 +15,7 @@ class PracticeContainerComponent extends Component
     public string|int $days;
     public Collection $practices;
     public Collection $originalPractices;
+    public bool       $isDomainSection = false;
 
     final public function mount(): void
     {
@@ -24,7 +25,7 @@ class PracticeContainerComponent extends Component
 
     final public function render(): Factory|View|Application
     {
-        return view('livewire.practice-container-component');
+        return view('livewire.practice-container');
     }
 
     /**
