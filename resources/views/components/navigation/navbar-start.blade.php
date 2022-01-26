@@ -10,6 +10,4 @@
     <x-navigation.domains-dropdown/>
 
     <x-navigation.references-link/>
-
-    <x-navigation.roles-dropdown/>
 </div>

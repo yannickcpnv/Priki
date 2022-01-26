@@ -102,6 +102,11 @@ class Practice extends Model
         return $this->publicationState->slug === config('business.domain.proposed');
     }
 
+    /**
+     * Publish a practice.
+     *
+     * @return void
+     */
     final public function publish(): void
     {
         $publicationState = PublicationState::whereSlug(config('business.domain.published'))->first();

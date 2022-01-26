@@ -12,6 +12,9 @@ use Illuminate\Database\QueryException;
 class OpinionController extends Controller
 {
 
+    /**
+     * @throws \Throwable
+     */
     final public function store(Request $request): RedirectResponse
     {
         try {
@@ -27,10 +30,14 @@ class OpinionController extends Controller
             return redirect()->route('practices.view', ['practice' => $request->input('practice_id')])
                              ->with('success', __('business.opinion.added'));
         } catch (QueryException $e) {
-            return $e->errorInfo[1] === 1062 ? $this->redirectWitWarning(
-                $request->input('practice_id'),
-                __('business.opinion.error.unique user in practice')
-            ) : throw $e;
+            if ($e->errorInfo[1] === 1062) {
+                return $this->redirectWitWarning(
+                    $request->input('practice_id'),
+                    __('business.opinion.error.unique user in practice')
+                );
+            } else {
+                throw $e;
+            }
         }
     }
 

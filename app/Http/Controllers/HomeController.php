@@ -18,8 +18,6 @@ class HomeController extends Controller
      */
     final public function index(Request $request): View
     {
-        $request->session()->remove('domain');
-
         $practices = Practice::allPublished('domain')->sortByDesc(fn($practice) => $practice->updated_at);
 
         return view('pages.home', compact('practices'));
