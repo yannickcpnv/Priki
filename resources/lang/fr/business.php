@@ -15,7 +15,7 @@ return [
     'reference' => [
         'added' => 'La référence a été ajoutée.',
         'error' => [
-            'description format' => 'La description doit faire entre 10 et 1000 caractères',
+            'description format' => 'La description doit faire entre 10 et 100 caractères',
             'unique url'         => 'L\'url existe déjà pour une autre référence.',
         ],
     ],

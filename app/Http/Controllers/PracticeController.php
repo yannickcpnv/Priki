@@ -23,7 +23,9 @@ class PracticeController extends Controller
 
     final public function listPublished(): View
     {
-        return view('pages.home', ['practices' => Practice::allPublished()]);
+        $practices = Practice::allPublished('domain')->sortByDesc(fn($practice) => $practice->updated_at);
+
+        return view('pages.home', compact('practices'));
     }
 
     final public function byDomain(string $slug): View
@@ -34,7 +36,7 @@ class PracticeController extends Controller
         return view('pages.practices.by-domain', compact('practices', 'domain'));
     }
 
-    final public function view(Practice $practice): View|RedirectResponse
+    final public function show(Practice $practice): View|RedirectResponse
     {
         if (Gate::denies('view', $practice)) {
             return redirect()->route('home')->with('warning', __('business.error.access.consult practice'));
@@ -42,7 +44,7 @@ class PracticeController extends Controller
 
         $practice->load('opinions.references', 'opinions.comments', 'opinions.user');
 
-        return view('pages.practices.view', compact('practice'));
+        return view('pages.practices.show', compact('practice'));
     }
 
     final public function publish(Request $request, Practice $practice): RedirectResponse

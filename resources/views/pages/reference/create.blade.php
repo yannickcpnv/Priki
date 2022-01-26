@@ -1,12 +1,10 @@
 <x-layout>
-    <x-slot name="titlePage" class="has-text-centered">
+    <x-slot name="titlePage">
         Création d'une nouvelle référence
     </x-slot>
 
-    <div class="columns is-centered">
-        <div class="column is-three-fifths">
-            <div class="box">
-                <form method="post" action="{{ route('references.store') }}">
+    <div class="box">
+        <form method="post" action="{{ route('references.store') }}">
                     @csrf
                     <div class="field">
                         <label class="label" for="description">Description</label>
@@ -55,7 +53,5 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
     </div>
 </x-layout>

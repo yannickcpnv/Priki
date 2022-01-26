@@ -1,4 +1,4 @@
-@props(['practiceId', 'opinionId', 'index' => 0])
+@props(['practiceId', 'opinionId', 'id' => 0])
 
 <form method="post" action="{{ route('opinions.comment.store') }}">
     @csrf
@@ -7,10 +7,10 @@
     <input type="hidden" name="opinion_id" value="{{ $opinionId }}">
 
     <div class="field">
-        <label class="label" for="comment[{{ $index }}]">Commentaire</label>
+        <label class="label" for="comment[{{ $id }}]">Commentaire</label>
         <div class="control">
             <textarea class="textarea"
-                      id="comment[{{ $index }}]"
+                      id="comment[{{ $id }}]"
                       name="comment"
                       minlength="10"
                       maxlength="5000"
@@ -23,10 +23,10 @@
     </div>
 
     <div class="field">
-        <label class="label" for="points[{{ $index }}]">Positif/Négatif</label>
+        <label class="label" for="points[{{ $id }}]">Positif/Négatif</label>
         <div class="control">
             <div class="select">
-                <select id="points[{{ $index }}]" name="points">
+                <select id="points[{{ $id }}]" name="points">
                     <option value="0">Neutre</option>
                     <option value="1">Positif</option>
                     <option value="-1">Négatif</option>
