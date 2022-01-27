@@ -17,3 +17,5 @@ yarn-error.log
 /public/js/app.js
 /public/fonts/vendor/
 /public/js/confirm.js
+/_ide_helper.php
+/_ide_helper_models.php

@@ -2,18 +2,22 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\User;
+use App\Models\Practice;
+use App\Policies\PracticePolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
+
     /**
      * The policy mappings for the application.
      *
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Practice::class => PracticePolicy::class,
     ];
 
     /**
@@ -21,10 +25,10 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    final public function boot(): void
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('access-moderator', fn(User $user) => $user->isModerator());
     }
 }

@@ -6,12 +6,9 @@ use Log;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Nette\NotImplementedException;
-use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\QueryException;
-use Illuminate\Contracts\Foundation\Application;
 
 class ReferenceController extends Controller
 {
@@ -19,9 +16,9 @@ class ReferenceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View|Application
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index(): Factory|View|Application
+    final public function index(): View
     {
         return view('pages.reference.list', ['references' => Reference::all()]);
     }
@@ -29,9 +26,9 @@ class ReferenceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View|Application
+     * @return \Illuminate\Contracts\View\View
      */
-    public function create(): Factory|View|Application
+    final public function create(): View
     {
         return view('pages.reference.create');
     }
@@ -41,20 +38,27 @@ class ReferenceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Redirector|Application|RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): Redirector|Application|RedirectResponse
+    final public function store(Request $request): RedirectResponse
     {
         try {
-            Reference::create(
-                [
-                    'description' => $request->input('description'),
-                    'url'         => $request->input('url'),
-                ]
-            );
+            $validated = $request->validate([
+                'description' => 'required|max:100|regex:/\s*(\S\s*){10,}/',
+                'url'         => 'nullable|url|unique:references',
+            ], [
+                'description.regex' => __('business.reference.error.description format'),
+            ]);
+
+            Reference::create([
+                'description' => $validated['description'],
+                'url'         => $validated['url'],
+            ]);
+
             return redirect(route('references.index'))->with('success', __('business.reference.added'));
         } catch (QueryException $e) {
             Log::Error($e->getMessage());
+
             return redirect(route('references.index'))->with('error', __('business.reference.error.unique url'));
         }
     }
@@ -63,8 +67,10 @@ class ReferenceController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Reference $reference
+     *
+     * @throws \Nette\NotImplementedException
      */
-    public function show(Reference $reference): void
+    final public function show(Reference $reference): void
     {
         throw new NotImplementedException();
     }
@@ -73,8 +79,10 @@ class ReferenceController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Reference $reference
+     *
+     * @throws \Nette\NotImplementedException
      */
-    public function edit(Reference $reference): void
+    final public function edit(Reference $reference): void
     {
         throw new NotImplementedException();
     }
@@ -84,8 +92,10 @@ class ReferenceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Reference    $reference
+     *
+     * @throws \Nette\NotImplementedException
      */
-    public function update(Request $request, Reference $reference): void
+    final public function update(Request $request, Reference $reference): void
     {
         throw new NotImplementedException();
     }
@@ -94,8 +104,10 @@ class ReferenceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Reference $reference
+     *
+     * @throws \Nette\NotImplementedException
      */
-    public function destroy(Reference $reference): void
+    final public function destroy(Reference $reference): void
     {
         throw new NotImplementedException();
     }

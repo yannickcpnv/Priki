@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
 
@@ -17,11 +18,12 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function create(): View
+    final public function create(): View
     {
         if (!session()->has('url.intended')) {
             session(['url.intended' => url()->previous()]);
         }
+
         return view('auth.login');
     }
 
@@ -32,7 +34,7 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(LoginRequest $request)
+    final public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
@@ -48,7 +50,7 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request)
+    final public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 

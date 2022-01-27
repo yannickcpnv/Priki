@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperReference
  */
 class Reference extends Model
 {

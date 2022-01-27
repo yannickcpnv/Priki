@@ -34,4 +34,9 @@ return [
         'closed'    => 'CLO',
         'archived'  => 'ARC',
     ],
+
+    'role' => [
+        'member'    => 'MBR',
+        'moderator' => 'MOD',
+    ],
 ];

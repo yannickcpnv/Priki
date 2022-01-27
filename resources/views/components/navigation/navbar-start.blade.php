@@ -3,9 +3,13 @@
         {{ __('Home') }}
     </a>
 
-    <x-navigation.roles-dropdown/>
+    @can('access-moderator')
+        <x-navigation.practices-link/>
+    @endcan
 
     <x-navigation.domains-dropdown/>
 
-    <x-navigation.references-link/>
+    @auth
+        <x-navigation.references-link/>
+    @endauth
 </div>

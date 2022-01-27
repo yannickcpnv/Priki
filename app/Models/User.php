@@ -5,11 +5,13 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperUser
  */
 class User extends Authenticatable
 {
@@ -56,6 +58,20 @@ class User extends Authenticatable
 
     //region Methods
 
+    //region Authorization
+
+    /**
+     * Check if the user role is moderator.
+     *
+     * @return bool
+     */
+    final public function isModerator(): bool
+    {
+        return $this->role?->slug === config('business.role.moderator');
+    }
+
+    //endregion
+
     /**
      * Check if the user has already given his opinion to a practice.
      *
@@ -65,7 +81,7 @@ class User extends Authenticatable
      */
     final public function hasGivenOpinionTo(Practice $practice): bool
     {
-        return $practice->opinions->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
+        return $practice->opinions?->contains(fn(Opinion $opinion) => $opinion->user_id === $this->id);
     }
 
     /**
@@ -85,5 +101,13 @@ class User extends Authenticatable
         return Role::whereSlug(config('business.user.default_role'))->first();
     }
 
+    //endregion
+
+    //region Accessors
+
+    final public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
     //endregion
 }

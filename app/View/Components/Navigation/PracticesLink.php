@@ -5,7 +5,7 @@ namespace App\View\Components\Navigation;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
-class ReferencesLink extends Component
+class PracticesLink extends Component
 {
 
     private string $requestPath;
@@ -14,10 +14,8 @@ class ReferencesLink extends Component
 
     final public function render(): View
     {
-        return view('components.navigation.references-link', [
-            'requestPath' => $this->requestPath,
-        ]);
+        return view('components.navigation.practices-link');
     }
 
-    final public function isAReferenceRoute(): bool { return str_contains($this->requestPath, 'references'); }
+    final public function isAPracticeRoute(): bool { return $this->requestPath === 'practices'; }
 }

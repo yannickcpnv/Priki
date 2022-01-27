@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin Builder
+ * @mixin IdeHelperRole
  */
 class Role extends Model
 {
+
     use HasFactory;
 
     public $timestamps = false;
