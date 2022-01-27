@@ -68,7 +68,7 @@
                     @auth
                         <div class="column is-2">
                             <a class="button is-success is-light w-full"
-                               href="#"
+                               href="{{ route('practices.edit', $practice->id) }}"
                                x-init="displayActions=true"
                             >
                                 {{ __('business.actions.edit') }}

@@ -46,6 +46,11 @@ class PracticeController extends Controller
         return view('pages.practices.show', compact('practice'));
     }
 
+    final public function edit(Practice $practice): View
+    {
+        return view('pages.practices.edit', compact('practice'));
+    }
+
     final public function publish(Request $request, Practice $practice): RedirectResponse
     {
         if ($request->user()->cannot('publish', $practice)) {

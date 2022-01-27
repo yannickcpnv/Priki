@@ -28,6 +28,9 @@ Route::prefix('/practices')->group(function () {
     Route::get('/{practice:id}', [PracticeController::class, 'show'])
          ->name('practices.show');
 
+    Route::get('/edit/{practice:id}', [PracticeController::class, 'edit'])
+         ->name('practices.edit');
+
     Route::post('/{practice:id}/publish', [PracticeController::class, 'publish'])
          ->name('practices.publish');
 });
