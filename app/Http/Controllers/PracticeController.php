@@ -51,6 +51,19 @@ class PracticeController extends Controller
         return view('pages.practices.edit', compact('practice'));
     }
 
+    final public function update(Request $request, Practice $practice): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title'  => 'required|min:3|max:40|unique:practices',
+            'reason' => 'nullable',
+        ]);
+
+        $practice->title = $validated['title'];
+        $practice->save();
+
+        return redirect(route('practices.show', $practice->id))->with('success', __('business.practice.edited'));
+    }
+
     final public function publish(Request $request, Practice $practice): RedirectResponse
     {
         if ($request->user()->cannot('publish', $practice)) {

@@ -3,6 +3,7 @@
 return [
     'practice'  => [
         'published' => 'La practice a été publiée.',
+        'edited' => 'La practice à été mise à jour.',
     ],
     'opinion'   => [
         'added'   => 'L\'opinion a été ajouté.',

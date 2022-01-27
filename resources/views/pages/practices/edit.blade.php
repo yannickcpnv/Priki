@@ -2,8 +2,7 @@
     <x-slot name="titlePage">Modification d'une practice</x-slot>
 
     <div class="box">
-        {{--{{ route('practices.update') }}--}}
-        <form method="post" action="#">
+        <form method="post" action="{{ route('practices.update', $practice->id) }}">
             @csrf
             <div class="field">
                 <label class="label" for="title">Titre</label>
@@ -12,7 +11,7 @@
                            id="title"
                            max="40"
                            min="3"
-                           name="description"
+                           name="title"
                            required
                            type="text"
                            value="{{ $practice->title }}"
@@ -29,8 +28,6 @@
                    <textarea class="textarea"
                              id="reason"
                              name="reason"
-                             minlength="10"
-                             maxlength="5000"
                    ></textarea>
                 </div>
                 @error('reason')
