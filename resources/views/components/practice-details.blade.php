@@ -65,7 +65,7 @@
                         </div>
                     @endcan
 
-                    @auth
+                    @can('edit', $practice)
                         <div class="column is-2">
                             <a class="button is-success is-light w-full"
                                href="{{ route('practices.edit', $practice->id) }}"
@@ -74,7 +74,7 @@
                                 {{ __('business.actions.edit') }}
                             </a>
                         </div>
-                    @endauth
+                        @endcan
                 </div>
             </div>
         </div>
