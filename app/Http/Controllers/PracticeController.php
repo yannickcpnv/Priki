@@ -46,8 +46,13 @@ class PracticeController extends Controller
         return view('pages.practices.show', compact('practice'));
     }
 
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     final public function edit(Practice $practice): View
     {
+        $this->authorize('edit', $practice);
+
         return view('pages.practices.edit', compact('practice'));
     }
 
