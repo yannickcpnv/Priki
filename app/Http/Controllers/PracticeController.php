@@ -6,6 +6,7 @@ use Gate;
 use App\Models\Domain;
 use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Services\PracticeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -44,6 +45,31 @@ class PracticeController extends Controller
         $practice->load('opinions.references', 'opinions.comments', 'opinions.user');
 
         return view('pages.practices.show', compact('practice'));
+    }
+
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    final public function edit(Practice $practice): View
+    {
+        $this->authorize('edit', $practice);
+
+        return view('pages.practices.edit', compact('practice'));
+    }
+
+    final public function update(
+        Request $request,
+        Practice $practice,
+        PracticeService $practiceService
+    ): RedirectResponse {
+        $validated = $request->validate([
+            'title'  => 'required|min:3|max:40|unique:practices',
+            'reason' => 'nullable',
+        ]);
+
+        $practiceService->updateWithChangelog($practice, $validated);
+
+        return redirect(route('practices.show', $practice->id))->with('success', __('business.practice.edited'));
     }
 
     final public function publish(Request $request, Practice $practice): RedirectResponse

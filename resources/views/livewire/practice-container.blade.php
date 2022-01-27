@@ -18,7 +18,7 @@
                 <livewire:practice-card-component
                     :practice="$practice"
                     :classes="'column is-one-third is-flex'"
-                    :with-header="!$this->isDomainSection"
+                    :with-domain="!$this->isDomainSection"
                     :key="$practice->id"
                 />
             @endforeach

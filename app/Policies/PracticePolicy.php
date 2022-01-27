@@ -25,6 +25,19 @@ class PracticePolicy
     }
 
     /**
+     * Determine whether the user can edit the practice.
+     *
+     * @param \App\Models\User     $user
+     * @param \App\Models\Practice $practice
+     *
+     * @return bool
+     */
+    final public function edit(User $user, Practice $practice): bool
+    {
+        return $user->can('access-moderator') && $user->hasWritten($practice);
+    }
+
+    /**
      * Determine whether the user can publish the practice.
      *
      * @param \App\Models\User     $user
