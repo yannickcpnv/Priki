@@ -19,7 +19,7 @@ class PracticePolicy
      *
      * @return bool
      */
-    public function view(?User $user, Practice $practice): bool
+    final public function view(?User $user, Practice $practice): bool
     {
         return $practice->isPublished() || ($user ?? new User())->can('access-moderator');
     }
@@ -32,7 +32,7 @@ class PracticePolicy
      *
      * @return bool
      */
-    public function publish(User $user, Practice $practice): bool
+    final public function publish(User $user, Practice $practice): bool
     {
         return $user->can('access-moderator')
                && $practice->isProposed()

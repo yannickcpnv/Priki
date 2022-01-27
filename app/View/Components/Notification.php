@@ -17,9 +17,9 @@ class Notification extends Component
         $this->type = $type;
     }
 
-    public function render(): View { return view('components.notification'); }
+    final public function render(): View { return view('components.notification'); }
 
-    public function getTypeClass(): string
+    final public function getTypeClass(): string
     {
         return match ($this->type) {
             default => "is-$this->type",

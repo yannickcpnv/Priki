@@ -11,7 +11,7 @@ Route::get('/', [PracticeController::class, 'listPublished'])
      ->name('home');
 
 Route::prefix('/users')->group(function () {
-    Route::get('/{user}', [UserController::class, 'show'])
+    Route::get('/{user:id}', [UserController::class, 'show'])
          ->name('users.show');
 });
 
@@ -22,13 +22,13 @@ Route::prefix('/practices')->group(function () {
     Route::get('/published', [PracticeController::class, 'listPublished'])
          ->name('practices.list-published');
 
-    Route::get('/domains/{slug}', [PracticeController::class, 'byDomain'])
+    Route::get('/domains/{domain:slug}', [PracticeController::class, 'byDomain'])
          ->name('practices.list-by-domain');
 
-    Route::get('/{practice}', [PracticeController::class, 'show'])
+    Route::get('/{practice:id}', [PracticeController::class, 'show'])
          ->name('practices.show');
 
-    Route::post('/{practice}/publish', [PracticeController::class, 'publish'])
+    Route::post('/{practice:id}/publish', [PracticeController::class, 'publish'])
          ->name('practices.publish');
 });
 
@@ -39,7 +39,7 @@ Route::prefix('/opinions')->group(function () {
     Route::post('/comment', [OpinionController::class, 'storeComment'])
          ->name('opinions.comment.store');
 
-    Route::delete('/{opinion}', [OpinionController::class, 'destroy'])
+    Route::delete('/{opinion:id}', [OpinionController::class, 'destroy'])
          ->name('opinions.destroy');
 });
 

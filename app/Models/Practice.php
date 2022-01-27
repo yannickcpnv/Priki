@@ -20,6 +20,7 @@ class Practice extends Model
     use HasFactory;
 
     //region Methods
+    private const BUSINESS_DOMAIN_PUBLISHED_KEY = 'business.domain.published';
 
     /**
      * Retrieve all published practices.
@@ -89,7 +90,7 @@ class Practice extends Model
      */
     final public function isPublished(): bool
     {
-        return $this->publicationState->slug === config('business.domain.published');
+        return $this->publicationState->slug === config(self::BUSINESS_DOMAIN_PUBLISHED_KEY);
     }
 
     /**
@@ -109,7 +110,7 @@ class Practice extends Model
      */
     final public function publish(): void
     {
-        $publicationState = PublicationState::whereSlug(config('business.domain.published'))->first();
+        $publicationState = PublicationState::whereSlug(config(self::BUSINESS_DOMAIN_PUBLISHED_KEY))->first();
         $this->publicationState()->associate($publicationState);
 
         $this->save();
