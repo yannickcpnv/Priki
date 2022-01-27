@@ -74,7 +74,7 @@
                                 {{ __('business.actions.edit') }}
                             </a>
                         </div>
-                        @endcan
+                    @endcan
                 </div>
             </div>
         </div>
@@ -83,6 +83,36 @@
         <div class="p-4">
             <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
         </div>
+
+        {{--Changelogs--}}
+        @if ($practice->changelogs->count())
+            <div class="mb-4">
+                <div class="box content">
+                    <h2 class="subtitle is-3">Changements</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Qui</th>
+                                <th>Quand</th>
+                                <th>Pourquoi</th>
+                                <th>Valeur précédente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($practice->changelogs as $changelog)
+                                <tr>
+                                    <th>{{ $changelog->name }}</th>
+                                    <th>{{ $changelog->pivot->created_at->isoFormat('LLL') }}</th>
+                                    <td>{{ $changelog->pivot->reason }}</td>
+                                    <td>{{ $changelog->pivot->previously }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
     </div>
 </article>
 
