@@ -6,7 +6,7 @@
         <div class="card my-3">
             <header class="card-header has-background-primary-dark">
                 <h2 class="card-header-title has-text-light">
-                    {{ $practice->domain->name }}
+                    {{ $practice->title }}
                 </h2>
             </header>
             <div class="card-content">
@@ -15,9 +15,19 @@
                         {{ $practice->description }}
                     </div>
                     <div class="mt-3 grid auto-rows-auto justify-items-end">
-                        <div class="tags has-addons mb-0">
-                            <span class="tag is-dark">Etat</span>
-                            <span class="tag is-info">{{ $practice->publicationState->name }}</span>
+                        <div class="field is-grouped is-grouped-multiline">
+                            <div class="control">
+                                <div class="tags has-addons mb-0">
+                                    <span class="tag is-dark">Domaine</span>
+                                    <span class="tag is-primary">{{ $practice->domain->name }}</span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="tags has-addons mb-0">
+                                    <span class="tag is-dark">Etat</span>
+                                    <span class="tag is-info">{{ $practice->publicationState->name }}</span>
+                                </div>
+                            </div>
                         </div>
 
                         <em>Crée le
@@ -25,7 +35,6 @@
                                 {{ $practice->created_at->isoFormat('LL') }}
                             </time>
                         </em>
-                        <br>
                         <em>Modifié le
                             <time datetime="{{ $practice->updated_at->format('Y-m-d') }}">
                                 {{ $practice->updated_at->isoFormat('LL') }}
