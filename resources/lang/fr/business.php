@@ -32,5 +32,6 @@ return [
     ],
     'actions'   => [
         'publish' => 'Publier',
+        'edit'    => 'Éditer',
     ],
 ];

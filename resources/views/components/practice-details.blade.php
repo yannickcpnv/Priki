@@ -58,14 +58,23 @@
                                   x-init="displayActions=true"
                             >
                                 @csrf
-                                <div class="control has-text-right">
-                                    <button class="button is-success is-light w-full" type="submit">
-                                        {{ __('business.actions.publish') }}
-                                    </button>
-                                </div>
+                                <button class="button is-success is-light w-full" type="submit">
+                                    {{ __('business.actions.publish') }}
+                                </button>
                             </form>
                         </div>
                     @endcan
+
+                    @auth
+                        <div class="column is-2">
+                            <a class="button is-success is-light w-full"
+                               href="#"
+                               x-init="displayActions=true"
+                            >
+                                {{ __('business.actions.edit') }}
+                            </a>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </div>
