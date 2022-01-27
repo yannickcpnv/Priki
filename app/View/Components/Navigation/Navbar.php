@@ -8,5 +8,5 @@ use Illuminate\Contracts\View\View;
 class Navbar extends Component
 {
 
-    public function render(): View { return view('components.navigation.navbar'); }
+    final public function render(): View { return view('components.navigation.navbar'); }
 }

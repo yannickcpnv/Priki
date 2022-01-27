@@ -12,6 +12,8 @@ use Illuminate\Database\QueryException;
 class OpinionController extends Controller
 {
 
+    private const PRACTICES_SHOW_ROUTE = 'practices.show';
+
     /**
      * @throws \Throwable
      */
@@ -27,7 +29,7 @@ class OpinionController extends Controller
                 $opinion->references()->attach($request->input('references'));
             });
 
-            return redirect()->route('practices.show', ['practice' => $request->input('practice_id')])
+            return redirect()->route(self::PRACTICES_SHOW_ROUTE, ['practice' => $request->input('practice_id')])
                              ->with('success', __('business.opinion.added'));
         } catch (QueryException $e) {
             if ($e->errorInfo[1] === 1062) {
@@ -35,9 +37,9 @@ class OpinionController extends Controller
                     $request->input('practice_id'),
                     __('business.opinion.error.unique user in practice')
                 );
-            } else {
-                throw $e;
             }
+
+            throw $e;
         }
     }
 
@@ -48,7 +50,7 @@ class OpinionController extends Controller
             $opinion->addComment(Auth::user(), $request->all());
 
             return redirect()
-                ->route('practices.show', ['practice' => $request->input('practice_id')])
+                ->route(self::PRACTICES_SHOW_ROUTE, ['practice' => $request->input('practice_id')])
                 ->with('success', __('business.comment.added'));
         } catch (QueryException $e) {
             return $e->errorInfo[1] === 1406 ? $this->redirectWitWarning(
@@ -61,7 +63,7 @@ class OpinionController extends Controller
     final public function destroy(Request $request, Opinion $opinion): RedirectResponse
     {
         return $opinion->delete()
-            ? redirect()->route('practices.show', ['practice' => $request->input('practice_id')])
+            ? redirect()->route(self::PRACTICES_SHOW_ROUTE, ['practice' => $request->input('practice_id')])
                         ->with('success', __('business.opinion.deleted'))
             : $this->redirectWitWarning(
                 $request->input('practice_id'),
@@ -71,6 +73,7 @@ class OpinionController extends Controller
 
     private function redirectWitWarning(int $practiceId, string $message): RedirectResponse
     {
-        return redirect()->route('practices.show', ['practice' => $practiceId])->with('warning', $message);
+        return redirect()->route('' . self::PRACTICES_SHOW_ROUTE . '', ['practice' => $practiceId])
+                         ->with('warning', $message);
     }
 }

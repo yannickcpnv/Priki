@@ -28,10 +28,9 @@ class PracticeController extends Controller
         return view('pages.home', compact('practices'));
     }
 
-    final public function byDomain(string $slug): View
+    final public function byDomain(Domain $domain): View
     {
-        $domain = Domain::whereSlug($slug)->first();
-        $practices = Practice::allPublishedBy('domain', $slug, true);
+        $practices = Practice::allPublishedBy('domain', $domain->slug, true);
 
         return view('pages.practices.by-domain', compact('practices', 'domain'));
     }

@@ -9,5 +9,7 @@
 
     <x-navigation.domains-dropdown/>
 
-    <x-navigation.references-link/>
+    @auth
+        <x-navigation.references-link/>
+    @endauth
 </div>

@@ -12,7 +12,7 @@
         <hr class="navbar-divider">
         @foreach ($domains as $domain)
             <a @class(['navbar-item', 'is-active' => $isADomainRoute($domain)])
-               href="{{ route('practices.list-by-domain', ['slug' => $domain->slug]) }}"
+               href="{{ route('practices.list-by-domain', $domain->slug) }}"
             >
                 {{ $domain->name }}
                 ({{ $domain->practices_count }})
