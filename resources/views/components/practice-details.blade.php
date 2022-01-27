@@ -6,7 +6,7 @@
         <div class="card my-3">
             <header class="card-header has-background-primary-dark">
                 <h2 class="card-header-title has-text-light">
-                    {{ $practice->domain->name }}
+                    {{ $practice->title }}
                 </h2>
             </header>
             <div class="card-content">
@@ -15,9 +15,19 @@
                         {{ $practice->description }}
                     </div>
                     <div class="mt-3 grid auto-rows-auto justify-items-end">
-                        <div class="tags has-addons mb-0">
-                            <span class="tag is-dark">Etat</span>
-                            <span class="tag is-info">{{ $practice->publicationState->name }}</span>
+                        <div class="field is-grouped is-grouped-multiline">
+                            <div class="control">
+                                <div class="tags has-addons mb-0">
+                                    <span class="tag is-dark">Domaine</span>
+                                    <span class="tag is-primary">{{ $practice->domain->name }}</span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="tags has-addons mb-0">
+                                    <span class="tag is-dark">Etat</span>
+                                    <span class="tag is-info">{{ $practice->publicationState->name }}</span>
+                                </div>
+                            </div>
                         </div>
 
                         <em>Crée le
@@ -25,7 +35,6 @@
                                 {{ $practice->created_at->isoFormat('LL') }}
                             </time>
                         </em>
-                        <br>
                         <em>Modifié le
                             <time datetime="{{ $practice->updated_at->format('Y-m-d') }}">
                                 {{ $practice->updated_at->isoFormat('LL') }}
@@ -49,12 +58,21 @@
                                   x-init="displayActions=true"
                             >
                                 @csrf
-                                <div class="control has-text-right">
-                                    <button class="button is-success is-light w-full" type="submit">
-                                        {{ __('business.actions.publish') }}
-                                    </button>
-                                </div>
+                                <button class="button is-success is-light w-full" type="submit">
+                                    {{ __('business.actions.publish') }}
+                                </button>
                             </form>
+                        </div>
+                    @endcan
+
+                    @can('edit', $practice)
+                        <div class="column is-2">
+                            <a class="button is-success is-light w-full"
+                               href="{{ route('practices.edit', $practice->id) }}"
+                               x-init="displayActions=true"
+                            >
+                                {{ __('business.actions.edit') }}
+                            </a>
                         </div>
                     @endcan
                 </div>
@@ -65,6 +83,36 @@
         <div class="p-4">
             <x-opinions-container :opinions="$practice->opinions" :practice="$practice"/>
         </div>
+
+        {{--Changelogs--}}
+        @if ($practice->changelogs->count())
+            <div class="mb-4">
+                <div class="box content">
+                    <h2 class="subtitle is-3">Changements</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Qui</th>
+                                <th>Quand</th>
+                                <th>Pourquoi</th>
+                                <th>Valeur précédente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($practice->changelogs as $changelog)
+                                <tr>
+                                    <th>{{ $changelog->name }}</th>
+                                    <th>{{ $changelog->pivot->created_at->isoFormat('LLL') }}</th>
+                                    <td>{{ $changelog->pivot->reason }}</td>
+                                    <td>{{ $changelog->pivot->previously }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
     </div>
 </article>
 

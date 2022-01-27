@@ -85,6 +85,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if the user has written the practice.
+     *
+     * @param Practice $practice
+     *
+     * @return bool
+     */
+    final public function hasWritten(Practice $practice): bool { return $practice->user->id === $this->id; }
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
@@ -105,9 +114,6 @@ class User extends Authenticatable
 
     //region Accessors
 
-    final public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
-    }
+    final public function role(): BelongsTo { return $this->belongsTo(Role::class); }
     //endregion
 }

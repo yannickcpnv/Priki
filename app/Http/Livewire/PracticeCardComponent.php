@@ -14,7 +14,7 @@ class PracticeCardComponent extends Component
 
     public Practice $practice;
     public string   $classes;
-    public bool     $withHeader = false;
+    public bool     $withDomain = false;
     public bool     $withState  = false;
 
     /**
