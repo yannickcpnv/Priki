@@ -17,13 +17,18 @@ class PracticeFactory extends Factory
      * @return array
      */
     #[ArrayShape([
+        'title'                => "string",
         'description'          => "string",
         'domain_id'            => "int",
         'publication_state_id' => "int",
         'user_id'              => "int",
     ])] public function definition(): array
     {
+        $charsNb = mt_rand(3, 40);
+        $title = $charsNb < 5 ? 'abc' : $this->faker->text($charsNb);
+
         return [
+            'title'                => $title,
             'description'          => $this->faker->realText(5000),
             'domain_id'            => Domain::all()->random()->id,
             'publication_state_id' => PublicationState::all()->random()->id,

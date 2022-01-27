@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Str;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Domain;
@@ -48,11 +49,12 @@ class PracticeSeeder extends Seeder
         ) {
             Practice::create(
                 [
-                    'description' => $practice,
-                    'domain_id' => Domain::all()->random()->id,
+                    'title'                => Str::limit($practice, '37'),
+                    'description'          => $practice,
+                    'domain_id'            => Domain::all()->random()->id,
                     'publication_state_id' => PublicationState::all()->random()->id,
-                    'user_id' => User::all()->random()->id,
-                    'updated_at' => Carbon::now()->subMinutes(rand(1, 5 * 24 * 60)),
+                    'user_id'              => User::all()->random()->id,
+                    'updated_at'           => Carbon::now()->subMinutes(rand(1, 5 * 24 * 60)),
                 ]
             );
         }
