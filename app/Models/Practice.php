@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @mixin Builder
@@ -18,6 +19,10 @@ class Practice extends Model
 {
 
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+    ];
 
     //region Methods
     private const BUSINESS_DOMAIN_PUBLISHED_KEY = 'business.domain.published';
@@ -83,6 +88,16 @@ class Practice extends Model
         return self::where('updated_at', '>=', $dateSubDay)->get();
     }
 
+    private static function allPublishedQuery(string $with = null): Builder
+    {
+        $relation = 'publicationState';
+        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
+
+        return is_null($with)
+            ? self::whereHas($relation, $callback)
+            : self::with($with)->whereHas($relation, $callback);
+    }
+
     /**
      * Check if the practice is in published publication state.
      *
@@ -116,16 +131,6 @@ class Practice extends Model
         $this->save();
     }
 
-    private static function allPublishedQuery(string $with = null): Builder
-    {
-        $relation = 'publicationState';
-        $callback = fn($publicationState) => $publicationState->where('slug', config('business.domain.published'));
-
-        return is_null($with)
-            ? self::whereHas($relation, $callback)
-            : self::with($with)->whereHas($relation, $callback);
-    }
-
     //endregion
 
     //region Accessors
@@ -148,6 +153,13 @@ class Practice extends Model
     final public function opinions(): HasMany
     {
         return $this->hasMany(Opinion::class);
+    }
+
+    final public function changelogs(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'changelogs')
+                    ->withPivot('reason', 'previously')
+                    ->withTimestamps();
     }
 
     //endregion

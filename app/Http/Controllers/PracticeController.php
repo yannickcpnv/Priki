@@ -6,6 +6,7 @@ use Gate;
 use App\Models\Domain;
 use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Services\PracticeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -56,15 +57,17 @@ class PracticeController extends Controller
         return view('pages.practices.edit', compact('practice'));
     }
 
-    final public function update(Request $request, Practice $practice): RedirectResponse
-    {
+    final public function update(
+        Request $request,
+        Practice $practice,
+        PracticeService $practiceService
+    ): RedirectResponse {
         $validated = $request->validate([
             'title'  => 'required|min:3|max:40|unique:practices',
             'reason' => 'nullable',
         ]);
 
-        $practice->title = $validated['title'];
-        $practice->save();
+        $practiceService->updateWithChangelog($practice, $validated);
 
         return redirect(route('practices.show', $practice->id))->with('success', __('business.practice.edited'));
     }
