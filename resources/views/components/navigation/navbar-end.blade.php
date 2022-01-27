@@ -1,9 +1,5 @@
 <div class="navbar-end">
     <div class="navbar-item">
-        <a class="navbar-link is-arrowless has-text-weight-bold is-uppercase has-text-primary">
-            Exam COM
-        </a>
-
         @auth
             <div class="buttons">
                 <div class="navbar-item has-dropdown is-hoverable" data-target="roles-dropdown">
